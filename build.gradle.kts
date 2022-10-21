@@ -19,8 +19,10 @@ dependencies {
     implementation("io.micronaut:micronaut-management:3.7.1")
     implementation("io.swagger.core.v3:swagger-annotations:2.2.4")
     implementation("jakarta.annotation:jakarta.annotation-api:2.1.0")
-    runtimeOnly("ch.qos.logback:logback-classic:1.4.4")
+    implementation("ch.qos.logback:logback-classic:1.4.4")
     implementation("io.micronaut:micronaut-validation:3.7.1")
+    implementation("org.jetbrains:annotations:23.0.0")
+
 }
 
 
