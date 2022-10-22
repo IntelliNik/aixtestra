@@ -10,3 +10,4 @@ dependencies:
   - tesseract
   - notebook
   - matplotlib
+  - numpy
