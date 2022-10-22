@@ -23,8 +23,10 @@ spec:
           resources:
             requests:
               memory: "1Gi"
+              cpu: "0.5"
             limits:
-              memory: "1Gi"
+              memory: "2Gi"
+              cpu: "1"
           imagePullPolicy: {{.Values.image.pullPolicy}}
           ports:
             - containerPort: 5000
