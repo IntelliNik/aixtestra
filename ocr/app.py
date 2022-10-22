@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import base64
 from flask import Flask, request
 import numpy as np
