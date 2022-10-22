@@ -14,6 +14,8 @@ package com.aixtra.couchcode.controller;
 
 import com.aixtra.couchcode.model.Solution;
 import io.micronaut.core.annotation.Nullable;
+import io.micronaut.http.HttpHeaders;
+import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
 import io.micronaut.http.exceptions.HttpStatusException;
@@ -49,8 +51,8 @@ public class StudentsController {
     )
     @Get(uri = "/ping")
     @Produces(value = {})
-    public Mono<Void> ping() {
-        LOGGER.info("Got pinged");
+    public Mono<Void> ping(HttpRequest request) {
+        LOGGER.info("Got pinged {}", request.getHeaders().get(HttpHeaders.AUTHORIZATION));
         return Mono.empty();
     }
 

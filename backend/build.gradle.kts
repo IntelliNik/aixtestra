@@ -39,6 +39,7 @@ tasks {
         }
         to {
             image = "europe-west3-docker.pkg.dev/creators-contest-2022/team-aixtra/solution"
+            credHelper = "gcloud"
         }
     }
 }
