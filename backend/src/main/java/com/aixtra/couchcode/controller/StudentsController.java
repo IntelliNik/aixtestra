@@ -51,7 +51,7 @@ public class StudentsController {
     @Produces(value = {})
     public Mono<Void> ping() {
         LOGGER.info("Got pinged");
-        return Mono.error(new HttpStatusException(HttpStatus.NOT_IMPLEMENTED, null));
+        return Mono.empty();
     }
 
 
