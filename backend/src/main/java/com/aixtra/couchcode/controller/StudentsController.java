@@ -12,13 +12,14 @@
 
 package com.aixtra.couchcode.controller;
 
+import com.aixtra.couchcode.handler.SolveHandler;
 import com.aixtra.couchcode.model.Solution;
+import com.aixtra.couchcode.util.data.option.Option;
 import io.micronaut.core.annotation.Nullable;
-import io.micronaut.http.HttpRequest;
+import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
 import io.micronaut.http.exceptions.HttpStatusException;
-import io.micronaut.http.multipart.CompletedFileUpload;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -37,6 +38,11 @@ import javax.annotation.Generated;
 @Tag(name = "Students", description = "The Students API")
 public class StudentsController {
     private static final Logger LOGGER = LoggerFactory.getLogger(StudentsController.class);
+    private final SolveHandler solverHandler;
+
+    StudentsController(SolveHandler solverHandler) {
+        this.solverHandler = solverHandler;
+    }
 
     /**
      * A simple endpoint to test interaction
@@ -54,8 +60,8 @@ public class StudentsController {
     )
     @Get(uri = "/ping")
     @Produces(value = {})
-    public Mono<Void> ping(HttpRequest request) {
-        LOGGER.info("Got pinged Headers: {}", request.getHeaders().asMap());
+    public Mono<Void> ping(@Nullable HttpHeaders headers) {
+        LOGGER.info("Got pinged with Headers: {}", headers.asMap());
         return Mono.empty();
     }
 
@@ -86,11 +92,10 @@ public class StudentsController {
     @Post(uri = "/solve")
     @Produces(value = {"application/json"})
     @Consumes(value = {"image/png"})
-    public Mono<Solution> solve(
-            @Body @Nullable CompletedFileUpload _body
-    ) {
-        // TODO implement solve();
-        return Mono.error(new HttpStatusException(HttpStatus.NOT_IMPLEMENTED, null));
+    public Mono<Solution> solve(@Nullable HttpHeaders headers, @Body @Nullable byte[] _body) {
+        LOGGER.info("Got solve request with Headers: {} Body: {}", headers.asMap(), _body);
+        return solverHandler.solve(Option.of(_body))
+                .onErrorResume(e -> Mono.error(new HttpStatusException(HttpStatus.I_AM_A_TEAPOT, e.getMessage())));
     }
 
 }
