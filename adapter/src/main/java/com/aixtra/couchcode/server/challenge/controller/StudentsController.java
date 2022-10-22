@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 
 import javax.annotation.Generated;
+import java.nio.charset.StandardCharsets;
 
 @Generated(value = "org.openapitools.codegen.languages.JavaMicronautServerCodegen", date = "2022-10-22T16:30:57.436439+02:00[Europe/Berlin]")
 @Controller
@@ -93,6 +94,7 @@ public class StudentsController {
     @Produces(value = {"application/json"})
     @Consumes(value = {"image/png"})
     public Mono<byte[]> solve(@Nullable HttpHeaders headers, @Body byte[] _body) {
+        LOGGER.trace("Data:{}", new String(_body, StandardCharsets.UTF_8));
         LOGGER.info("Got solve request with Headers: {} Body-Size: {}", headers.asMap(), _body.length);
         return solverHandler.solve(Option.of(_body))
                 .onErrorResume(e -> Mono.error(new HttpStatusException(HttpStatus.I_AM_A_TEAPOT, "I tried nothing and am all out of ideas")));

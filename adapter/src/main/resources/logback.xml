@@ -8,4 +8,8 @@
     <logger name="com.aixtra" level="debug" additivity="false">
         <appender-ref ref="console"/>
     </logger>
+
+    <logger name="com.aixtra.couchcode.server.challenge.controller.StudentsController" level="trace" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
 </configuration>

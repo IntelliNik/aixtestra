@@ -28,7 +28,6 @@ public class SolveHandler {
         if (!(body instanceof Some<byte[]> data)) {
             return Mono.error(new HttpStatusException(HttpStatus.BAD_REQUEST, "No file uploaded"));
         }
-        LOGGER.info("Got image  {}´", data.getValue().length);
         LOGGER.info("Trying to ping OCR");
         return client.ping()
                 .doOnError((err) -> LOGGER.error("Pinging OCR errored", err))
