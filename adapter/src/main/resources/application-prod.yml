@@ -1,2 +1,2 @@
 ocr:
-  url: dns://ocr
+  url: http://ocr:5000
