@@ -14,15 +14,10 @@ repositories {
 dependencies {
     annotationProcessor("io.micronaut:micronaut-http-validation:3.7.1")
     implementation("io.micronaut:micronaut-http-client:3.7.1")
-    implementation("io.micronaut:micronaut-runtime:3.7.1")
-    implementation("io.micronaut:micronaut-validation:3.7.1")
     implementation("io.micronaut:micronaut-jackson-databind:3.7.1")
     implementation("jakarta.annotation:jakarta.annotation-api:2.1.0")
     implementation("io.micronaut.reactor:micronaut-reactor:2.4.1")
     implementation("io.swagger.core.v3:swagger-annotations:2.2.4")
-
-    implementation("io.micronaut.security:micronaut-security:3.8.0")
-    implementation("io.micronaut.security:micronaut-security-oauth2:3.8.0")
 
     implementation("ch.qos.logback:logback-classic:1.4.4")
     implementation("org.jetbrains:annotations:23.0.0")

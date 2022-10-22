@@ -1,14 +1,4 @@
 micronaut:
-  security:
-    oauth2:
-      client:
-        registration:
-          keycloak:
-            client-id: ${CLIENT_ID:aixtra}
-            client-secret: ${CLIENT_SECRET:e88b73df-df66-4196-8860-43d5f4f27d2d}
-            authorization-grant-type: client_credentials
-        provider:
-          token-uri: ${KEYCLOAK_BASE_URL:'https://creators-contest-2022.itestra.de'}/auth/realms/creators-contest-2022/protocol/openid-connect/token
   application:
     name: codeYourCouch
   server:
