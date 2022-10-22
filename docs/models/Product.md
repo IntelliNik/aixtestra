@@ -6,10 +6,10 @@ The class is defined in **[Product.java](../../src/main/java/com/aixtra/couchcod
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**features** | [`List&lt;Feature&gt;`](Feature.md) |  |  [optional property]
-**prices** | [`List&lt;PriceDefinitionEntry&gt;`](PriceDefinitionEntry.md) |  |  [optional property]
+| Name         | Type                                                          | Description | Notes               | 
+|--------------|---------------------------------------------------------------|-------------|---------------------|
+| **features** | [`List&lt;Feature&gt;`](Feature.md)                           |             | [optional property] | 
+| **prices**   | [`List&lt;PriceDefinitionEntry&gt;`](PriceDefinitionEntry.md) |             | [optional property] | 
 
 
 

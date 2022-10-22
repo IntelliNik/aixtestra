@@ -6,10 +6,10 @@ The class is defined in **[Solution.java](../../src/main/java/com/aixtra/couchco
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**product** | [`Product`](Product.md) |  |  [optional property]
-**hints** | [`List&lt;Hint&gt;`](Hint.md) |  |  [optional property]
+| Name        | Type                          | Description | Notes               | 
+|-------------|-------------------------------|-------------|---------------------|
+| **product** | [`Product`](Product.md)       |             | [optional property] | 
+| **hints**   | [`List&lt;Hint&gt;`](Hint.md) |             | [optional property] | 
 
 
 
