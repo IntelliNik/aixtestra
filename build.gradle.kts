@@ -13,16 +13,19 @@ repositories {
 
 dependencies {
     annotationProcessor("io.micronaut:micronaut-http-validation:3.7.1")
-    annotationProcessor("io.micronaut.openapi:micronaut-openapi:4.5.1")
     implementation("io.micronaut:micronaut-http-client:3.7.1")
-    implementation("io.micronaut:micronaut-jackson-databind:3.7.1")
-    implementation("io.micronaut:micronaut-management:3.7.1")
-    implementation("io.swagger.core.v3:swagger-annotations:2.2.4")
-    implementation("jakarta.annotation:jakarta.annotation-api:2.1.0")
-    implementation("ch.qos.logback:logback-classic:1.4.4")
+    implementation("io.micronaut:micronaut-runtime:3.7.1")
     implementation("io.micronaut:micronaut-validation:3.7.1")
-    implementation("org.jetbrains:annotations:23.0.0")
+    implementation("io.micronaut:micronaut-jackson-databind:3.7.1")
+    implementation("jakarta.annotation:jakarta.annotation-api:2.1.0")
+    implementation("io.micronaut.reactor:micronaut-reactor:2.4.1")
+    implementation("io.swagger.core.v3:swagger-annotations:2.2.4")
 
+    implementation("io.micronaut.security:micronaut-security:3.8.0")
+    implementation("io.micronaut.security:micronaut-security-oauth2:3.8.0")
+
+    implementation("ch.qos.logback:logback-classic:1.4.4")
+    implementation("org.jetbrains:annotations:23.0.0")
 }
 
 
@@ -36,11 +39,15 @@ java {
 
 tasks {
     jib {
+        from {
+            image = "openjdk:17-jdk"
+        }
         to {
-            image = "gcr.io/myapp/jib-image"
+            image = "europe-west3-docker.pkg.dev/creators-contest-2022/team-aixtra/solution"
         }
     }
 }
+
 graalvmNative.toolchainDetection.set(false)
 micronaut {
     runtime("netty")

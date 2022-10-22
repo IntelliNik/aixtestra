@@ -1,4 +1,4 @@
-package com.aixtra.couchcode.logging;
+package com.aixtra.couchcode.util.logging;
 
 import ch.qos.logback.classic.pattern.ExtendedThrowableProxyConverter;
 import ch.qos.logback.classic.spi.IThrowableProxy;

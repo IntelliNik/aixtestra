@@ -1,4 +1,4 @@
-package com.aixtra.couchcode.logging;
+package com.aixtra.couchcode.util.logging;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.ILoggingEvent;

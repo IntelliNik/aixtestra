@@ -1,4 +1,4 @@
-package com.aixtra.couchcode.logging;
+package com.aixtra.couchcode.util.logging;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;

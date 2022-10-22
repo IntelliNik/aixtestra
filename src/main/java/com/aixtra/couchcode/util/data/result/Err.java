@@ -1,7 +1,7 @@
-package com.aixtra.couchcode.data.result;
+package com.aixtra.couchcode.util.data.result;
 
-import com.aixtra.couchcode.data.option.None;
-import com.aixtra.couchcode.data.option.Option;
+import com.aixtra.couchcode.util.data.option.None;
+import com.aixtra.couchcode.util.data.option.Option;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

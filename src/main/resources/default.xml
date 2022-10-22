@@ -1,8 +1,8 @@
 <included>
     <conversionRule conversionWord="color"
-                    converterClass="com.aixtra.couchcode.logging.ColorConverter"/>
+                    converterClass="com.aixtra.couchcode.util.logging.ColorConverter"/>
     <conversionRule conversionWord="ts"
-                    converterClass="com.aixtra.couchcode.logging.ThrowableSpacer"/>
+                    converterClass="com.aixtra.couchcode.util.logging.ThrowableSpacer"/>
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 
         <encoder>

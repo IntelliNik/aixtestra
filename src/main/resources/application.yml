@@ -1,7 +1,20 @@
 micronaut:
   application:
     name: codeYourCouch
+  server:
+    port: 8080
+    context-path: "/"
+
 netty:
   default:
     allocator:
       max-order: 3
+
+jackson:
+  serialization:
+    writeEnumsUsingToString: true
+    writeDatesAsTimestamps: false
+  deserialization:
+    readEnumsUsingToString: true
+    failOnUnknownProperties: false
+    failOnInvalidSubtype: false
