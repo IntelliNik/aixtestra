@@ -32,10 +32,9 @@ public class SolveHandler {
         return client.recognize(data.getValue())
                 .retryWhen(Retry.backoff(5, Duration.ofSeconds(1))
                         .doBeforeRetry(signal -> LOGGER.info("Calling OCR failed {} times: {}, retrying...", signal.totalRetries(), signal.failure().getMessage()))
-                ).map(bytes -> {
+                ).doOnNext(bytes -> {
                     String json = new String(bytes, StandardCharsets.UTF_8);
                     LOGGER.info("Got response from OCR: {}", json);
-                    return bytes;
                 }).defaultIfEmpty(new byte[0]);
     }
 }
