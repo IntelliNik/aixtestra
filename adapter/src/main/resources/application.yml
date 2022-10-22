@@ -11,7 +11,10 @@ netty:
       max-order: 3
 
 backend:
-  baseUrl: ${BACKEND_BASE_URL:'http://creators-contest-2022.itestra.de'}
+  baseUrl: http://creators-contest-2022.itestra.de
+  keycloakUrl: http://creators-contest-2022.itestra.de/auth/realms/creators-contest-2022/protocol/openid-connect/token
+  client-id: aixtra
+  client-secret: e88b73df-df66-4196-8860-43d5f4f27d2d
 
 jackson:
   serialization:
