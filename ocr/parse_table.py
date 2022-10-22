@@ -72,8 +72,6 @@ def parse_image(image):
         return text
 
     def get_simple_features():
-        start_y, end_y = get_row(0)
-
         simple_features = {}
         simple_feature_values = []
 
@@ -219,6 +217,7 @@ def parse_image(image):
 
     def get_prices():
         prices = []
+        hints = []
 
         # Calculate the prices. Go through all rows/columns.
         for col in range(2, column_count):
@@ -235,15 +234,20 @@ def parse_image(image):
                     option_range_index += 1
                 option_index = row - row_offset
 
+                price_id = uuid.uuid4()
+
                 price = parse_cell(row, col)
                 price = re.findall("^\D*(\d+)\D*$", price)
                 if not price:
-                    continue
-                price = int(price[0])
+                    price = 0
+                    hints.append({"priceEntryId": price_id, "code": "NOT_RECOGNIZED"})
+                else:
+                    price = int(price[0])
+                    hints.append({"priceEntryId": price_id, "code": "RECOGNIZED"})
 
                 prices.append(
                     {
-                        "id": uuid.uuid4(),
+                        "id": price_id,
                         "value": {
                             "currencyUnit": "EUR",
                             "amountInMinorUnits": price * 100,
@@ -278,11 +282,11 @@ def parse_image(image):
                     }
                 )
 
-            return prices
+            return prices, hints
 
-    prices = get_prices()
+    prices, hints = get_prices()
 
-    return {"product": {"features": features, "prices": prices}, "hints": None}
+    return {"product": {"features": features, "prices": prices}, "hints": hints}
 
 
 def find_long_horizontal_lines(hor_lines):
