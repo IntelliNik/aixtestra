@@ -13,21 +13,12 @@
 package com.aixtra.couchcode.client.challenge.api;
 
 import io.micronaut.http.annotation.*;
-import io.micronaut.core.annotation.*;
 import io.micronaut.http.client.annotation.Client;
-import io.micronaut.core.convert.format.Format;
 import reactor.core.publisher.Mono;
 import javax.annotation.Generated;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 @Generated(value="org.openapitools.codegen.languages.JavaMicronautClientCodegen", date="2022-10-22T18:01:35.219427+02:00[Europe/Berlin]")
-@Client("${openapi-micronaut-client-base-path}")
+@Client("${backend.baseUrl}")
 public interface RatingApi {
     /**
      * Register for the next rating run, in order to compete with the other teams. A rating run is scheduled at every hour sharp. After a rating runs finished, a team has to re-register for the next rating run. A re-registration for the same rating-run will result in a Bad-Request Exception

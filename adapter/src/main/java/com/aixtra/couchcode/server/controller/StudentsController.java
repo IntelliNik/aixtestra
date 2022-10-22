@@ -92,7 +92,7 @@ public class StudentsController {
     @Post(uri = "/solve")
     @Produces(value = {"application/json"})
     @Consumes(value = {"image/png"})
-    public Mono<Solution> solve(@Nullable HttpHeaders headers, @Body @Nullable byte[] _body) {
+    public Mono<Solution> solve(@Nullable HttpHeaders headers, @Body  byte[] _body) {
         LOGGER.info("Got solve request with Headers: {} Body: {}", headers.asMap(), _body);
         return solverHandler.solve(Option.of(_body))
                 .onErrorResume(e -> Mono.error(new HttpStatusException(HttpStatus.I_AM_A_TEAPOT, e.getMessage())));

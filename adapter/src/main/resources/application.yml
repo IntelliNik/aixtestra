@@ -10,6 +10,9 @@ netty:
     allocator:
       max-order: 3
 
+backend:
+  baseUrl: ${BACKEND_BASE_URL:'http://creators-contest-2022.itestra.de'}
+
 jackson:
   serialization:
     writeEnumsUsingToString: true
