@@ -15,11 +15,15 @@ def readb64(data):
     return img
 
 
-@app.route("/compute")
+@app.route("/compute", methods=['POST'])
 def compute():
     print("Request received, starting OCR.")
+
     if request.data:
         image = readb64(request.data)
         response = parse_image(image)
         print("Done, returning response.")
-    return response
+        return response
+    else:
+        print("Could not parse image data.")
+        return "Could not parse image data", 400
