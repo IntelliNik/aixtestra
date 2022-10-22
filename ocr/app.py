@@ -14,6 +14,9 @@ def readb64(data):
     img = cv2.imdecode(nparr, 0)
     return img
 
+@app.route("/ping")
+def ping():
+    return "pong"
 
 @app.route("/compute", methods=['POST'])
 def compute():
