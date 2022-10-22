@@ -104,21 +104,12 @@ components:
         id:
           type: string
           format: uuid
-        text:
-          type: string
         nameInFormula:
           type: string
-        printName:
-          type: string
-          enum:
-            - PRINT_NAME
-            - NOT_PRINT_NAME
         optionRanges:
           type: array
           items:
             $ref: "#/components/schemas/OptionRange"
-        externalReference:
-          type: string
 
     OptionRange:
       type: object
@@ -132,8 +123,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Option"
-        externalReference:
-          type: string
 
     Option:
       type: object
@@ -142,17 +131,6 @@ components:
           type: string
           format: uuid
         name:
-          type: string
-        type:
-          type: string
-          enum:
-            - VALUE
-            - FREE_TEXT
-            - NUMBER_INPUT
-            - NOT_RELEVANT_OPTION
-        text:
-          type: string
-        externalReference:
           type: string
 
     PriceDefinitionEntry:
@@ -186,6 +164,3 @@ components:
         amountInMinorUnits:
           type: integer
           format: int64
-        scale:
-          type: integer
-          format: int32

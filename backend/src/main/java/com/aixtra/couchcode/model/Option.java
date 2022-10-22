@@ -13,9 +13,12 @@
 package com.aixtra.couchcode.model;
 
 import java.util.Objects;
+import java.util.Arrays;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.*;
 
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 import io.micronaut.core.annotation.*;
 import javax.annotation.Generated;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,13 +28,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
  */
 @JsonPropertyOrder({
   Option.JSON_PROPERTY_ID,
-  Option.JSON_PROPERTY_NAME,
-  Option.JSON_PROPERTY_TYPE,
-  Option.JSON_PROPERTY_TEXT,
-  Option.JSON_PROPERTY_EXTERNAL_REFERENCE
+  Option.JSON_PROPERTY_NAME
 })
 @JsonTypeName("Option")
-@Generated(value="org.openapitools.codegen.languages.JavaMicronautServerCodegen", date="2022-10-22T12:32:57.327248+02:00[Europe/Berlin]")
+@Generated(value="org.openapitools.codegen.languages.JavaMicronautServerCodegen", date="2022-10-22T16:30:57.436439+02:00[Europe/Berlin]")
 @Introspected
 public class Option {
     public static final String JSON_PROPERTY_ID = "id";
@@ -39,50 +39,6 @@ public class Option {
 
     public static final String JSON_PROPERTY_NAME = "name";
     private String name;
-
-    /**
-     * Gets or Sets type
-     */
-    public enum TypeEnum {
-        VALUE("VALUE"),
-        FREE_TEXT("FREE_TEXT"),
-        NUMBER_INPUT("NUMBER_INPUT"),
-        NOT_RELEVANT_OPTION("NOT_RELEVANT_OPTION");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-    public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
-
-    public static final String JSON_PROPERTY_TEXT = "text";
-    private String text;
-
-    public static final String JSON_PROPERTY_EXTERNAL_REFERENCE = "externalReference";
-    private String externalReference;
 
     public Option() {
     }
@@ -133,75 +89,6 @@ public class Option {
         this.name = name;
     }
 
-    public Option type(TypeEnum type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * Get type
-     * @return type
-     **/
-    @Nullable
-    @Schema(name = "type", required = false)
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public TypeEnum getType() {
-        return type;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(TypeEnum type) {
-        this.type = type;
-    }
-
-    public Option text(String text) {
-        this.text = text;
-        return this;
-    }
-
-    /**
-     * Get text
-     * @return text
-     **/
-    @Nullable
-    @Schema(name = "text", required = false)
-    @JsonProperty(JSON_PROPERTY_TEXT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getText() {
-        return text;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TEXT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public Option externalReference(String externalReference) {
-        this.externalReference = externalReference;
-        return this;
-    }
-
-    /**
-     * Get externalReference
-     * @return externalReference
-     **/
-    @Nullable
-    @Schema(name = "externalReference", required = false)
-    @JsonProperty(JSON_PROPERTY_EXTERNAL_REFERENCE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getExternalReference() {
-        return externalReference;
-    }
-
-    @JsonProperty(JSON_PROPERTY_EXTERNAL_REFERENCE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExternalReference(String externalReference) {
-        this.externalReference = externalReference;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -212,15 +99,12 @@ public class Option {
         }
         Option option = (Option) o;
         return Objects.equals(this.id, option.id) &&
-            Objects.equals(this.name, option.name) &&
-            Objects.equals(this.type, option.type) &&
-            Objects.equals(this.text, option.text) &&
-            Objects.equals(this.externalReference, option.externalReference);
+            Objects.equals(this.name, option.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, type, text, externalReference);
+        return Objects.hash(id, name);
     }
 
     @Override
@@ -229,9 +113,6 @@ public class Option {
         sb.append("class Option {\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
-        sb.append("    type: ").append(toIndentedString(type)).append("\n");
-        sb.append("    text: ").append(toIndentedString(text)).append("\n");
-        sb.append("    externalReference: ").append(toIndentedString(externalReference)).append("\n");
         sb.append("}");
         return sb.toString();
     }

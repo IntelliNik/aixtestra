@@ -13,11 +13,15 @@
 package com.aixtra.couchcode.model;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.aixtra.couchcode.model.OptionRange;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.*;
 
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 import io.micronaut.core.annotation.*;
 import javax.annotation.Generated;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,66 +31,21 @@ import io.swagger.v3.oas.annotations.media.Schema;
  */
 @JsonPropertyOrder({
   Feature.JSON_PROPERTY_ID,
-  Feature.JSON_PROPERTY_TEXT,
   Feature.JSON_PROPERTY_NAME_IN_FORMULA,
-  Feature.JSON_PROPERTY_PRINT_NAME,
-  Feature.JSON_PROPERTY_OPTION_RANGES,
-  Feature.JSON_PROPERTY_EXTERNAL_REFERENCE
+  Feature.JSON_PROPERTY_OPTION_RANGES
 })
 @JsonTypeName("Feature")
-@Generated(value="org.openapitools.codegen.languages.JavaMicronautServerCodegen", date="2022-10-22T12:32:57.327248+02:00[Europe/Berlin]")
+@Generated(value="org.openapitools.codegen.languages.JavaMicronautServerCodegen", date="2022-10-22T16:30:57.436439+02:00[Europe/Berlin]")
 @Introspected
 public class Feature {
     public static final String JSON_PROPERTY_ID = "id";
     private UUID id;
 
-    public static final String JSON_PROPERTY_TEXT = "text";
-    private String text;
-
     public static final String JSON_PROPERTY_NAME_IN_FORMULA = "nameInFormula";
     private String nameInFormula;
 
-    /**
-     * Gets or Sets printName
-     */
-    public enum PrintNameEnum {
-        PRINT_NAME("PRINT_NAME"),
-        NOT_PRINT_NAME("NOT_PRINT_NAME");
-
-        private String value;
-
-        PrintNameEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static PrintNameEnum fromValue(String value) {
-            for (PrintNameEnum b : PrintNameEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-    public static final String JSON_PROPERTY_PRINT_NAME = "printName";
-    private PrintNameEnum printName;
-
     public static final String JSON_PROPERTY_OPTION_RANGES = "optionRanges";
     private List<OptionRange> optionRanges = null;
-
-    public static final String JSON_PROPERTY_EXTERNAL_REFERENCE = "externalReference";
-    private String externalReference;
 
     public Feature() {
     }
@@ -114,29 +73,6 @@ public class Feature {
         this.id = id;
     }
 
-    public Feature text(String text) {
-        this.text = text;
-        return this;
-    }
-
-    /**
-     * Get text
-     * @return text
-     **/
-    @Nullable
-    @Schema(name = "text", required = false)
-    @JsonProperty(JSON_PROPERTY_TEXT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getText() {
-        return text;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TEXT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setText(String text) {
-        this.text = text;
-    }
-
     public Feature nameInFormula(String nameInFormula) {
         this.nameInFormula = nameInFormula;
         return this;
@@ -158,29 +94,6 @@ public class Feature {
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setNameInFormula(String nameInFormula) {
         this.nameInFormula = nameInFormula;
-    }
-
-    public Feature printName(PrintNameEnum printName) {
-        this.printName = printName;
-        return this;
-    }
-
-    /**
-     * Get printName
-     * @return printName
-     **/
-    @Nullable
-    @Schema(name = "printName", required = false)
-    @JsonProperty(JSON_PROPERTY_PRINT_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public PrintNameEnum getPrintName() {
-        return printName;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PRINT_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPrintName(PrintNameEnum printName) {
-        this.printName = printName;
     }
 
     public Feature optionRanges(List<OptionRange> optionRanges) {
@@ -214,29 +127,6 @@ public class Feature {
         this.optionRanges = optionRanges;
     }
 
-    public Feature externalReference(String externalReference) {
-        this.externalReference = externalReference;
-        return this;
-    }
-
-    /**
-     * Get externalReference
-     * @return externalReference
-     **/
-    @Nullable
-    @Schema(name = "externalReference", required = false)
-    @JsonProperty(JSON_PROPERTY_EXTERNAL_REFERENCE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getExternalReference() {
-        return externalReference;
-    }
-
-    @JsonProperty(JSON_PROPERTY_EXTERNAL_REFERENCE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExternalReference(String externalReference) {
-        this.externalReference = externalReference;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -247,16 +137,13 @@ public class Feature {
         }
         Feature feature = (Feature) o;
         return Objects.equals(this.id, feature.id) &&
-            Objects.equals(this.text, feature.text) &&
             Objects.equals(this.nameInFormula, feature.nameInFormula) &&
-            Objects.equals(this.printName, feature.printName) &&
-            Objects.equals(this.optionRanges, feature.optionRanges) &&
-            Objects.equals(this.externalReference, feature.externalReference);
+            Objects.equals(this.optionRanges, feature.optionRanges);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, text, nameInFormula, printName, optionRanges, externalReference);
+        return Objects.hash(id, nameInFormula, optionRanges);
     }
 
     @Override
@@ -264,11 +151,8 @@ public class Feature {
         StringBuilder sb = new StringBuilder();
         sb.append("class Feature {\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
-        sb.append("    text: ").append(toIndentedString(text)).append("\n");
         sb.append("    nameInFormula: ").append(toIndentedString(nameInFormula)).append("\n");
-        sb.append("    printName: ").append(toIndentedString(printName)).append("\n");
         sb.append("    optionRanges: ").append(toIndentedString(optionRanges)).append("\n");
-        sb.append("    externalReference: ").append(toIndentedString(externalReference)).append("\n");
         sb.append("}");
         return sb.toString();
     }

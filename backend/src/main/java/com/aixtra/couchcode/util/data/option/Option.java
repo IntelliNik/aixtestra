@@ -51,7 +51,7 @@ public sealed abstract class Option<T> permits None, Some {
      */
     @Contract("_ -> new")
     @NotNull
-    public static <T> Option<T> of(@Nullable T value) {
+    public static <T> Option<T> of(T value) {
         return Some.of(value);
     }
 

@@ -13,11 +13,15 @@
 package com.aixtra.couchcode.model;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.aixtra.couchcode.model.Money;
+import com.aixtra.couchcode.model.OptionSelection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.*;
 
+import javax.validation.constraints.*;
 import javax.validation.Valid;
 import io.micronaut.core.annotation.*;
 import javax.annotation.Generated;
@@ -32,7 +36,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
   PriceDefinitionEntry.JSON_PROPERTY_OPTION_SELECTIONS
 })
 @JsonTypeName("PriceDefinitionEntry")
-@Generated(value="org.openapitools.codegen.languages.JavaMicronautServerCodegen", date="2022-10-22T12:32:57.327248+02:00[Europe/Berlin]")
+@Generated(value="org.openapitools.codegen.languages.JavaMicronautServerCodegen", date="2022-10-22T16:30:57.436439+02:00[Europe/Berlin]")
 @Introspected
 public class PriceDefinitionEntry {
     public static final String JSON_PROPERTY_ID = "id";

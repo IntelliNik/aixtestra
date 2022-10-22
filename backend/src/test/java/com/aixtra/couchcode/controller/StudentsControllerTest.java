@@ -1,34 +1,23 @@
 package com.aixtra.couchcode.controller;
 
-import io.micronaut.http.multipart.CompletedFileUpload;
 import com.aixtra.couchcode.model.Solution;
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
-import io.micronaut.http.client.HttpClient;
-import io.micronaut.http.client.annotation.Client;
-import io.micronaut.runtime.server.EmbeddedServer;
-import io.micronaut.http.HttpStatus;
-import io.micronaut.http.MutableHttpRequest;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
-import io.micronaut.http.MediaType;
+import io.micronaut.http.HttpStatus;
+import io.micronaut.http.MutableHttpRequest;
+import io.micronaut.http.client.HttpClient;
+import io.micronaut.http.client.annotation.Client;
+import io.micronaut.http.multipart.CompletedFileUpload;
 import io.micronaut.http.uri.UriTemplate;
-import io.micronaut.http.cookie.Cookie;
-import io.micronaut.http.client.multipart.MultipartBody;
-import io.micronaut.core.type.Argument;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Assertions;
+import io.micronaut.runtime.server.EmbeddedServer;
+import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
-import reactor.core.publisher.Mono;
-import java.io.File;
-import java.io.FileReader;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.HashSet;
 
 
 /**
@@ -49,11 +38,8 @@ public class StudentsControllerTest {
 
     /**
      * This test is used to validate the implementation of ping() method
-     *
      * The method should: A simple endpoint to test interaction
-     *
-     * This endpoint is used to determine, whether or not the system is  generally available. It is used before every rating run. System which  are not available or unable to react to the ping in time, will be  disqualified and not further considered during the rating run. 
-     *
+     * This endpoint is used to determine, whether or not the system is  generally available. It is used before every rating run. System which  are not available or unable to react to the ping in time, will be  disqualified and not further considered during the rating run.
      * TODO fill in the parameters and test return value.
      */
     @Test
@@ -62,7 +48,7 @@ public class StudentsControllerTest {
         // given
 
         // when
-        controller.ping().block();
+        //controller.ping().block();
 
         // then
         Assertions.assertTrue(true);
@@ -76,7 +62,7 @@ public class StudentsControllerTest {
      */
     @Test
     @Disabled("Not Implemented")
-    void pingClientApiTest() throws IOException {
+    void pingClientApiTest() {
         // given
         String uri = UriTemplate.of("/ping").expand(new HashMap<>());
         MutableHttpRequest<?> request = HttpRequest.GET(uri)
@@ -91,21 +77,18 @@ public class StudentsControllerTest {
 
     /**
      * This test is used to validate the implementation of solve() method
-     *
      * The method should: Tries to extract the information of a given task.
-     *
-     * For a task image, provided in the request body in base64 format, the service tries to retrieve the information  about the product and embed it in the provided model. 
-     *
+     * For a task image, provided in the request body in base64 format, the service tries to retrieve the information  about the product and embed it in the provided model.
      * TODO fill in the parameters and test return value.
      */
     @Test
     @Disabled("Not Implemented")
     void solveMethodTest() {
         // given
-        CompletedFileUpload _body = null;
+        //CompletedFileUpload _body = null;
 
         // when
-        Solution result = controller.solve(_body).block();
+        //Solution result = controller.solve(_body).block();
 
         // then
         Assertions.assertTrue(true);
@@ -119,7 +102,7 @@ public class StudentsControllerTest {
      */
     @Test
     @Disabled("Not Implemented")
-    void solveClientApiTest() throws IOException {
+    void solveClientApiTest(){
         // given
         CompletedFileUpload body = null;
         String uri = UriTemplate.of("/solve").expand(new HashMap<>());
