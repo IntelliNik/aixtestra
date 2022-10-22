@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.aixtra
+testFramework: junit
+sourceLanguage: java
+buildTool: gradle_kotlin
+features: [annotation-api, app-name, gradle, http-client, jackson-databind, java, java-application, jib, junit, kubernetes, logback, management, micronaut-build, netty-server, openapi, readme, shade, yaml]

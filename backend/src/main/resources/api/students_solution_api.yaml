@@ -1,0 +1,191 @@
+openapi: 3.0.0
+info:
+  title: Catalog Reader
+  description: The students solution to identifying prices on a furniture catalog
+  version: 1.0.0
+  contact:
+    name: Timo Bergerbusch, Philipp Kehrbusch, Philipp Fonteyn
+    url: https://itestra.com/
+
+paths:
+  /ping:
+    get:
+      summary: 'A simple endpoint to test interaction'
+      description: |
+        This endpoint is used to determine, whether or not the system is 
+        generally available. It is used before every rating run. System which 
+        are not available or unable to react to the ping in time, will be 
+        disqualified and not further considered during the rating run.
+      tags: [ Students ]
+      operationId: ping
+      responses:
+        '200':
+          description: 'OK'
+  /solve:
+    post:
+      summary: 'Tries to extract the information of a given task.'
+      description: |
+        For a task image, provided in the request body in base64 format, the service tries to retrieve the information 
+        about the product and embed it in the provided model.
+      tags: [ Students ]
+      operationId: solve
+      requestBody:
+        description: |
+          The task image in base64 encoding.
+        content:
+          image/png:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: 'Solved'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Solution'
+        '418':
+          description: 'I tried nothing and am all out of ideas'
+
+security:
+  - oAuth2: [ ]
+
+components:
+  securitySchemes:
+    oAuth2:
+      type: oauth2
+      description: "OAuth2 Konfiguration"
+      flows:
+        clientCredentials:
+          tokenUrl: "/auth/realms/creators-contest-2022/protocol/openid-connect/token"
+          scopes: { }
+
+  schemas:
+    Solution:
+      type: object
+      properties:
+        product:
+          $ref: '#/components/schemas/Product'
+        hints:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hint'
+
+    Hint:
+      type: object
+      properties:
+        priceEntryId:
+          type: string
+          format: uuid
+        code:
+          $ref: '#/components/schemas/HintCode'
+
+    HintCode:
+      type: string
+      enum:
+        - RECOGNIZED
+        - NOT_RECOGNIZED
+
+    Product:
+      type: object
+      properties:
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/Feature'
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceDefinitionEntry'
+
+    Feature:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        text:
+          type: string
+        nameInFormula:
+          type: string
+        printName:
+          type: string
+          enum:
+            - PRINT_NAME
+            - NOT_PRINT_NAME
+        optionRanges:
+          type: array
+          items:
+            $ref: "#/components/schemas/OptionRange"
+        externalReference:
+          type: string
+
+    OptionRange:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        options:
+          type: array
+          items:
+            $ref: "#/components/schemas/Option"
+        externalReference:
+          type: string
+
+    Option:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - VALUE
+            - FREE_TEXT
+            - NUMBER_INPUT
+            - NOT_RELEVANT_OPTION
+        text:
+          type: string
+        externalReference:
+          type: string
+
+    PriceDefinitionEntry:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        value:
+          $ref: "#/components/schemas/Money"
+        optionSelections:
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionSelection'
+
+    OptionSelection:
+      type: object
+      properties:
+        featureId:
+          type: string
+          format: uuid
+        optionId:
+          type: string
+          format: uuid
+
+    Money:
+      type: object
+      properties:
+        currencyUnit:
+          type: string
+        amountInMinorUnits:
+          type: integer
+          format: int64
+        scale:
+          type: integer
+          format: int32
