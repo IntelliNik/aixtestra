@@ -3,6 +3,7 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 
+team: aixtra
 
 auth:
   clientId: aixtra

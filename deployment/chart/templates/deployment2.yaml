@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ocr
+  labels:
+    app: ocr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ocr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        date: "{{ .Values.metadata.date }}"
+        app: ocr
+    spec:
+      containers:
+        - name: ocr
+          image: europe-west3-docker.pkg.dev/creators-contest-2022/team-{{.Values.team}}/ocr:{{.Values.image.tag}}
+          resources:
+            requests:
+              memory: "1Gi"
+            limits:
+              memory: "1Gi"
+          imagePullPolicy: {{.Values.image.pullPolicy}}
+          ports:
+            - containerPort: 5000
