@@ -14,7 +14,7 @@ public abstract class OCRClient {
         return Mono.defer(() -> rec(image));
     }
 
-    @Post(value = "/compute", consumes = "image/png", produces = "application/json")
+    @Post("/compute")
     abstract Mono<byte[]> rec(@Body byte[] image);
 
     @Get("/ping")
