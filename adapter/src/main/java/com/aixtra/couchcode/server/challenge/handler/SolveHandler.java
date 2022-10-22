@@ -31,7 +31,7 @@ public class SolveHandler {
         LOGGER.info("Trying to ping OCR");
         return client.ping()
                 .doOnError((err) -> LOGGER.error("Pinging OCR errored", err))
-                .doOnNext(resp -> LOGGER.info("Got ping response {}", resp))
+                .doOnNext(resp -> LOGGER.info("Got ping Response-Code: {}", resp.getStatus()))
                 .then(client.recognize(data.getValue())
                                 .retryWhen(Retry.backoff(5, Duration.ofSeconds(1))
                                         .doBeforeRetry(signal -> LOGGER.info("Calling OCR failed {} times: {}, retrying...", signal.totalRetries(), signal.failure().getMessage()))
