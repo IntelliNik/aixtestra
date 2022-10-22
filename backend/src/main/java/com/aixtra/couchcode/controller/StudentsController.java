@@ -12,6 +12,7 @@
 
 package com.aixtra.couchcode.controller;
 
+import com.aixtra.couchcode.model.Product;
 import com.aixtra.couchcode.model.Solution;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpStatus;
@@ -81,6 +82,7 @@ public class StudentsController {
     public Mono<Solution> solve(
             @Body @Nullable CompletedFileUpload _body
     ) {
+
         return Mono.error(new HttpStatusException(HttpStatus.NOT_IMPLEMENTED, null));
     }
 
