@@ -14,7 +14,6 @@ package com.aixtra.couchcode.controller;
 
 import com.aixtra.couchcode.model.Solution;
 import io.micronaut.core.annotation.Nullable;
-import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
@@ -25,6 +24,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ import reactor.core.publisher.Mono;
 
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.JavaMicronautServerCodegen", date = "2022-10-22T12:32:57.327248+02:00[Europe/Berlin]")
+@Generated(value = "org.openapitools.codegen.languages.JavaMicronautServerCodegen", date = "2022-10-22T16:30:57.436439+02:00[Europe/Berlin]")
 @Controller
 @Tag(name = "Students", description = "The Students API")
 public class StudentsController {
@@ -47,12 +47,15 @@ public class StudentsController {
             summary = "A simple endpoint to test interaction",
             responses = {
                     @ApiResponse(responseCode = "200", description = "OK")
+            },
+            security = {
+                    @SecurityRequirement(name = "oAuth2", scopes = {})
             }
     )
     @Get(uri = "/ping")
     @Produces(value = {})
     public Mono<Void> ping(HttpRequest request) {
-        LOGGER.info("Got pinged {}", request.getHeaders().get(HttpHeaders.AUTHORIZATION));
+        LOGGER.info("Got pinged Headers: {}", request.getHeaders().asMap());
         return Mono.empty();
     }
 
@@ -75,6 +78,9 @@ public class StudentsController {
             },
             parameters = {
                     @Parameter(name = "_body", description = "The task image in base64 encoding. ")
+            },
+            security = {
+                    @SecurityRequirement(name = "oAuth2", scopes = {})
             }
     )
     @Post(uri = "/solve")
@@ -83,6 +89,7 @@ public class StudentsController {
     public Mono<Solution> solve(
             @Body @Nullable CompletedFileUpload _body
     ) {
+        // TODO implement solve();
         return Mono.error(new HttpStatusException(HttpStatus.NOT_IMPLEMENTED, null));
     }
 

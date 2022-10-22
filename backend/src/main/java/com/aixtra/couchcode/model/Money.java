@@ -13,8 +13,11 @@
 package com.aixtra.couchcode.model;
 
 import java.util.Objects;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.*;
 
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 import io.micronaut.core.annotation.*;
 import javax.annotation.Generated;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -24,11 +27,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
  */
 @JsonPropertyOrder({
   Money.JSON_PROPERTY_CURRENCY_UNIT,
-  Money.JSON_PROPERTY_AMOUNT_IN_MINOR_UNITS,
-  Money.JSON_PROPERTY_SCALE
+  Money.JSON_PROPERTY_AMOUNT_IN_MINOR_UNITS
 })
 @JsonTypeName("Money")
-@Generated(value="org.openapitools.codegen.languages.JavaMicronautServerCodegen", date="2022-10-22T12:32:57.327248+02:00[Europe/Berlin]")
+@Generated(value="org.openapitools.codegen.languages.JavaMicronautServerCodegen", date="2022-10-22T16:30:57.436439+02:00[Europe/Berlin]")
 @Introspected
 public class Money {
     public static final String JSON_PROPERTY_CURRENCY_UNIT = "currencyUnit";
@@ -36,9 +38,6 @@ public class Money {
 
     public static final String JSON_PROPERTY_AMOUNT_IN_MINOR_UNITS = "amountInMinorUnits";
     private Long amountInMinorUnits;
-
-    public static final String JSON_PROPERTY_SCALE = "scale";
-    private Integer scale;
 
     public Money() {
     }
@@ -89,29 +88,6 @@ public class Money {
         this.amountInMinorUnits = amountInMinorUnits;
     }
 
-    public Money scale(Integer scale) {
-        this.scale = scale;
-        return this;
-    }
-
-    /**
-     * Get scale
-     * @return scale
-     **/
-    @Nullable
-    @Schema(name = "scale", required = false)
-    @JsonProperty(JSON_PROPERTY_SCALE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Integer getScale() {
-        return scale;
-    }
-
-    @JsonProperty(JSON_PROPERTY_SCALE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setScale(Integer scale) {
-        this.scale = scale;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -122,13 +98,12 @@ public class Money {
         }
         Money money = (Money) o;
         return Objects.equals(this.currencyUnit, money.currencyUnit) &&
-            Objects.equals(this.amountInMinorUnits, money.amountInMinorUnits) &&
-            Objects.equals(this.scale, money.scale);
+            Objects.equals(this.amountInMinorUnits, money.amountInMinorUnits);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(currencyUnit, amountInMinorUnits, scale);
+        return Objects.hash(currencyUnit, amountInMinorUnits);
     }
 
     @Override
@@ -137,7 +112,6 @@ public class Money {
         sb.append("class Money {\n");
         sb.append("    currencyUnit: ").append(toIndentedString(currencyUnit)).append("\n");
         sb.append("    amountInMinorUnits: ").append(toIndentedString(amountInMinorUnits)).append("\n");
-        sb.append("    scale: ").append(toIndentedString(scale)).append("\n");
         sb.append("}");
         return sb.toString();
     }

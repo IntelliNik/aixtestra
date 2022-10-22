@@ -13,9 +13,13 @@
 package com.aixtra.couchcode.model;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.aixtra.couchcode.model.HintCode;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.*;
 
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 import io.micronaut.core.annotation.*;
 import javax.annotation.Generated;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -28,7 +32,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
   Hint.JSON_PROPERTY_CODE
 })
 @JsonTypeName("Hint")
-@Generated(value="org.openapitools.codegen.languages.JavaMicronautServerCodegen", date="2022-10-22T12:32:57.327248+02:00[Europe/Berlin]")
+@Generated(value="org.openapitools.codegen.languages.JavaMicronautServerCodegen", date="2022-10-22T16:30:57.436439+02:00[Europe/Berlin]")
 @Introspected
 public class Hint {
     public static final String JSON_PROPERTY_PRICE_ENTRY_ID = "priceEntryId";

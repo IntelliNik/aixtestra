@@ -6,12 +6,10 @@ The class is defined in **[Money.java](../../src/main/java/com/aixtra/couchcode/
 
 ## Properties
 
-| Name                   | Type      | Description | Notes               |
-|------------------------|-----------|-------------|---------------------|
-| **currencyUnit**       | `String`  |             | [optional property] |
-| **amountInMinorUnits** | `Long`    |             | [optional property] |
-| **scale**              | `Integer` |             | [optional property] |
-
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**currencyUnit** | `String` |  |  [optional property]
+**amountInMinorUnits** | `Long` |  |  [optional property]
 
 
 

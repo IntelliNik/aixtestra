@@ -6,13 +6,11 @@ The class is defined in **[OptionRange.java](../../src/main/java/com/aixtra/couc
 
 ## Properties
 
-| Name                  | Type                              | Description | Notes               | 
-|-----------------------|-----------------------------------|-------------|---------------------|
-| **id**                | `UUID`                            |             | [optional property] | 
-| **name**              | `String`                          |             | [optional property] | 
-| **options**           | [`List&lt;Option&gt;`](Option.md) |             | [optional property] | 
-| **externalReference** | `String`                          |             | [optional property] | 
-
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | `UUID` |  |  [optional property]
+**name** | `String` |  |  [optional property]
+**options** | [`List&lt;Option&gt;`](Option.md) |  |  [optional property]
 
 
 

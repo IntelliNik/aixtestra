@@ -1,0 +1,16 @@
+team: aixtra
+
+image:
+  tag: latest
+  pullPolicy: Always
+
+auth:
+  clientId: aixtra
+  clientSecret: e88b73df-df66-4196-8860-43d5f4f27d2d
+  keycloakBaseUrl: http://keycloak.creators-contest-2022:80
+
+backend:
+  baseUrl: http://backend.creators-contest-2022:8080
+
+ingress:
+  host: creators-contest-2022.itestra.de

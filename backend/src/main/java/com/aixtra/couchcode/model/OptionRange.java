@@ -13,11 +13,15 @@
 package com.aixtra.couchcode.model;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.aixtra.couchcode.model.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.*;
 
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 import io.micronaut.core.annotation.*;
 import javax.annotation.Generated;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -28,11 +32,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @JsonPropertyOrder({
   OptionRange.JSON_PROPERTY_ID,
   OptionRange.JSON_PROPERTY_NAME,
-  OptionRange.JSON_PROPERTY_OPTIONS,
-  OptionRange.JSON_PROPERTY_EXTERNAL_REFERENCE
+  OptionRange.JSON_PROPERTY_OPTIONS
 })
 @JsonTypeName("OptionRange")
-@Generated(value="org.openapitools.codegen.languages.JavaMicronautServerCodegen", date="2022-10-22T12:32:57.327248+02:00[Europe/Berlin]")
+@Generated(value="org.openapitools.codegen.languages.JavaMicronautServerCodegen", date="2022-10-22T16:30:57.436439+02:00[Europe/Berlin]")
 @Introspected
 public class OptionRange {
     public static final String JSON_PROPERTY_ID = "id";
@@ -43,9 +46,6 @@ public class OptionRange {
 
     public static final String JSON_PROPERTY_OPTIONS = "options";
     private List<Option> options = null;
-
-    public static final String JSON_PROPERTY_EXTERNAL_REFERENCE = "externalReference";
-    private String externalReference;
 
     public OptionRange() {
     }
@@ -127,29 +127,6 @@ public class OptionRange {
         this.options = options;
     }
 
-    public OptionRange externalReference(String externalReference) {
-        this.externalReference = externalReference;
-        return this;
-    }
-
-    /**
-     * Get externalReference
-     * @return externalReference
-     **/
-    @Nullable
-    @Schema(name = "externalReference", required = false)
-    @JsonProperty(JSON_PROPERTY_EXTERNAL_REFERENCE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getExternalReference() {
-        return externalReference;
-    }
-
-    @JsonProperty(JSON_PROPERTY_EXTERNAL_REFERENCE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExternalReference(String externalReference) {
-        this.externalReference = externalReference;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -161,13 +138,12 @@ public class OptionRange {
         OptionRange optionRange = (OptionRange) o;
         return Objects.equals(this.id, optionRange.id) &&
             Objects.equals(this.name, optionRange.name) &&
-            Objects.equals(this.options, optionRange.options) &&
-            Objects.equals(this.externalReference, optionRange.externalReference);
+            Objects.equals(this.options, optionRange.options);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, options, externalReference);
+        return Objects.hash(id, name, options);
     }
 
     @Override
@@ -177,7 +153,6 @@ public class OptionRange {
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    options: ").append(toIndentedString(options)).append("\n");
-        sb.append("    externalReference: ").append(toIndentedString(externalReference)).append("\n");
         sb.append("}");
         return sb.toString();
     }

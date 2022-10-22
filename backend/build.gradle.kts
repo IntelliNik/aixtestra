@@ -38,8 +38,12 @@ tasks {
             image = "openjdk:17-jdk"
         }
         to {
-            image = "europe-west3-docker.pkg.dev/creators-contest-2022/team-aixtra/solution"
+            image = "europe-west3-docker.pkg.dev/creators-contest-2022/team-aixtra/solution:latest"
             credHelper = "gcloud"
+        }
+        container {
+            ports = listOf("8080")
+            environment = mapOf("MICRONAUT_ENVIRONMENTS" to "prod")
         }
     }
 }

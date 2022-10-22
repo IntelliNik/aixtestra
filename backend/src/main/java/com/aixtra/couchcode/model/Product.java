@@ -13,10 +13,15 @@
 package com.aixtra.couchcode.model;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.aixtra.couchcode.model.Feature;
+import com.aixtra.couchcode.model.PriceDefinitionEntry;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.*;
 
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 import io.micronaut.core.annotation.*;
 import javax.annotation.Generated;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -29,7 +34,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
   Product.JSON_PROPERTY_PRICES
 })
 @JsonTypeName("Product")
-@Generated(value="org.openapitools.codegen.languages.JavaMicronautServerCodegen", date="2022-10-22T12:32:57.327248+02:00[Europe/Berlin]")
+@Generated(value="org.openapitools.codegen.languages.JavaMicronautServerCodegen", date="2022-10-22T16:30:57.436439+02:00[Europe/Berlin]")
 @Introspected
 public class Product {
     public static final String JSON_PROPERTY_FEATURES = "features";
