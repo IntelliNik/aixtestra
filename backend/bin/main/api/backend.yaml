@@ -1,0 +1,241 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Client API
+  description: API called by backend
+
+paths:
+  /api/evaluate/{taskId}:
+    post:
+      tags: [ Evaluation ]
+      description: 'Evaluate a given Product based on a generated catalog to the actual Product'
+      operationId: evaluate
+      parameters:
+        - in: path
+          name: taskId
+          schema:
+            type: string
+          required: true
+          description: the task/catalog id to compare the given Product to
+      requestBody:
+        description: 'the Product'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Solution'
+      responses:
+        200:
+          description: 'the evaluation score'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluationScore'
+  /api/tasks/{difficulty}:
+    parameters:
+      - name: difficulty
+        in: path
+        required: true
+        description: The difficulty of the generated task
+        schema:
+          $ref: '#/components/schemas/TaskDifficulty'
+    post:
+      tags: [ Tasks ]
+      description: 'Generate a new task'
+      operationId: generateTask
+      responses:
+        200:
+          description: 'The generated task'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskWithSolution'
+
+  /api/rating/register:
+    post:
+      tags: [ Rating ]
+      description: 'Register for the next rating run, in order to compete with the other teams. A rating run is 
+      scheduled at every hour sharp. After a rating runs finished, a team has to re-register for the next rating run.
+      A re-registration for the same rating-run will result in a Bad-Request Exception'
+      operationId: register
+      responses:
+        200:
+          description: 'Successully registered for next rating run.'
+        412:
+          description: 'Unable to reach the ping endpoint to complete registration.'
+
+
+components:
+  schemas:
+    Solution:
+      type: object
+      required:
+        - product
+        - hints
+      properties:
+        product:
+          $ref: '#/components/schemas/Product'
+        hints:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hint'
+
+    Hint:
+      type: object
+      required:
+        - priceEntryId
+        - code
+      properties:
+        priceEntryId:
+          type: string
+          format: uuid
+        code:
+          $ref: '#/components/schemas/HintCode'
+
+    HintCode:
+      type: string
+      enum:
+        - RECOGNIZED
+        - NOT_RECOGNIZED
+
+    Product:
+      type: object
+      required:
+        - features
+        - prices
+      properties:
+        features:
+          type: array
+          minLength: 1
+          items:
+            $ref: '#/components/schemas/Feature'
+        prices:
+          type: array
+          minLength: 1
+          items:
+            $ref: '#/components/schemas/PriceDefinitionEntry'
+
+    Feature:
+      type: object
+      required:
+        - id
+        - nameInFormula
+        - optionRanges
+      properties:
+        id:
+          type: string
+          format: uuid
+        nameInFormula:
+          type: string
+        optionRanges:
+          type: array
+          minLength: 1
+          items:
+            $ref: "#/components/schemas/OptionRange"
+
+    OptionRange:
+      type: object
+      required:
+        - id
+        - name
+        - options
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        options:
+          type: array
+          minLength: 1
+          items:
+            $ref: "#/components/schemas/Option"
+
+    Option:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+
+    PriceDefinitionEntry:
+      type: object
+      required:
+        - id
+        - value
+        - optionSelections
+      properties:
+        id:
+          type: string
+          format: uuid
+        value:
+          $ref: "#/components/schemas/Money"
+        optionSelections:
+          type: array
+          minLength: 1
+          items:
+            $ref: '#/components/schemas/OptionSelection'
+
+    OptionSelection:
+      type: object
+      required:
+        - featureId
+        - optionId
+      properties:
+        featureId:
+          type: string
+          format: uuid
+        optionId:
+          type: string
+          format: uuid
+
+    Money:
+      type: object
+      required:
+        - currencyUnit # TODO PKE generate with USD?
+        - amountInMinorUnits
+      properties:
+        currencyUnit:
+          type: string
+        amountInMinorUnits:
+          type: integer
+          format: int64
+
+    EvaluationScore:
+      type: object
+      required:
+        - achievedScore
+        - possibleScore
+      properties:
+        achievedScore:
+          type: number
+          format: double
+        possibleScore:
+          type: number
+          format: double
+
+    TaskWithSolution:
+      type: object
+      required:
+        - id
+        - task
+        - solution
+      properties:
+        id:
+          type: string
+        task:
+          type: string
+        solution:
+          $ref: '#/components/schemas/Solution'
+
+    TaskDifficulty:
+      type: string
+      enum:
+        - EASY
+        - MEDIUM
+        - DIFFICULT
