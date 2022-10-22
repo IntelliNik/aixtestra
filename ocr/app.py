@@ -1,20 +1,16 @@
 import base64
 from flask import Flask, request
-import cv2
 import numpy as np
+import cv2
 
-UPLOAD_FOLDER = '/path/to/the/uploads'
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
-
-app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+from parse_table import parse_image
 
 app = Flask(__name__)
 
 
 def readb64(data):
     nparr = np.fromstring(base64.b64decode(data), np.uint8)
-    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    img = cv2.imdecode(nparr, 0)
     return img
 
 
@@ -22,7 +18,5 @@ def readb64(data):
 def compute():
     if request.data:
         image = readb64(request.data)
-
-        response = {"lol": "hi"}
-
+        response = parse_image(image)
     return response
