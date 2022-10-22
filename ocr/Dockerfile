@@ -1,6 +1,8 @@
 FROM python:3.10-slim-buster
 
-RUN apt-get update && apt-get install -y python3-opencv tesseract-ocr libtesseract-dev tesseract-ocr-deu
+RUN apt-get update && \
+    apt-get install -y python3-opencv tesseract-ocr libtesseract-dev tesseract-ocr-deu && \
+    rm -rf /var/lib/apt/lists/*
 
 # We copy just the requirements.txt first to leverage Docker cache
 COPY ./requirements.txt /app/requirements.txt

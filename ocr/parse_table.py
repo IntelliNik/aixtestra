@@ -72,16 +72,6 @@ def parse_image(image):
         return text
 
     def get_simple_features():
-
-        # test precision of feature's name
-        def fix_name(name, simple_features):
-            if len(simple_features) == 0:
-                return name
-            for feature_name in simple_features:
-                if name in feature_name:
-                    return feature_name
-            return name
-
         start_y, end_y = get_row(0)
 
         simple_features = {}
@@ -89,12 +79,39 @@ def parse_image(image):
 
         for col_index in range(2, column_count):
             text = parse_cell(0, col_index)
-            features = re.findall("\s*(\S+): (\S+)\s*", text)
+
+            lines = text.split("\n")
+            new_feature_indices = filter(
+                lambda index: ":" in lines[index], range(len(lines))
+            )
+            feature_texts = [
+                " ".join(lines[start:end])
+                for start, end in itertools.pairwise(
+                    [*new_feature_indices, len(lines) + 1]
+                )
+            ]
 
             values = {}
 
-            for name, value in features:
-                name = fix_name(name, simple_features)
+            # test precision of feature's name
+            def fix_name(name, simple_features):
+                if len(simple_features) == 0:
+                    return name
+                for feature_name in simple_features:
+                    if name in feature_name:
+                        return feature_name
+                return name
+
+            for feature_text in feature_texts:
+                matches = re.findall("^\W*(\S+):\s+(.+)$", feature_text)
+
+                if not matches:
+                    continue
+
+                name, value = matches[0]
+                name = fix_name(name.strip(), simple_features)
+                value = value.strip()
+
                 if name not in simple_features:
                     simple_features[name] = set([value])
                 else:
@@ -109,11 +126,17 @@ def parse_image(image):
             for name, value in simple_features.items()
         ]
 
+        # If features are missing, we just add anything
+        for feature_values in simple_feature_values:
+            for feature in simple_features:
+                if feature["name"] not in feature_values:
+                    feature_values[feature["name"]] = feature["values"][0]
+
         return simple_features, simple_feature_values
 
     def check_row_delimiter(row, column):
         # Check if a cell has a row delimiter at the top
-        start_x, end_x = get_column(column)
+        end_x = get_column(column)[1]
 
         return hor_table_lines[row][2] < end_x
 

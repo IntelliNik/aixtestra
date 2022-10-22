@@ -1,7 +1,7 @@
 image:
   repository:
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 team: aixtra
 
