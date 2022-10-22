@@ -10,24 +10,18 @@ from parse_table import parse_image
 app = Flask(__name__)
 app.logger.setLevel(logging.DEBUG)
 
-def readb64(data):
-    nparr = np.fromstring(base64.b64decode(data), np.uint8)
-    img = cv2.imdecode(nparr, 0)
-    return img
-
-
 @app.route("/ping")
 def ping():
     return "pong"
 
 
-@app.route("/compute", methods=['POST'])
+@app.route("/compute", methods=["POST"])
 def compute():
     app.logger.info("Request received, parsing data.")
 
     if request.data:
-        image = readb64(request.data)
-        app.logger.info("Starting OCR.")
+        data = np.fromstring(request.data, np.uint8)
+        image = cv2.imdecode(data, 0)
         response = parse_image(image)
         app.logger.info("Done, returning response.")
         return response
