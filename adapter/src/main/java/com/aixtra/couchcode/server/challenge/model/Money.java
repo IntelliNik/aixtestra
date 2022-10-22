@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 
-package com.aixtra.couchcode.server.model;
+package com.aixtra.couchcode.server.challenge.model;
 
 import java.util.Objects;
 

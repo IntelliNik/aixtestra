@@ -1,7 +1,7 @@
 package com.aixtra.couchcode.controller;
 
-import com.aixtra.couchcode.server.controller.StudentsController;
-import com.aixtra.couchcode.server.model.Solution;
+import com.aixtra.couchcode.server.challenge.controller.StudentsController;
+import com.aixtra.couchcode.server.challenge.model.Solution;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
@@ -57,7 +57,6 @@ public class StudentsControllerTest {
     /**
      * This test is used to check that the api available to client through
      * '/ping' to the features of ping() works as desired.
-     *
      * TODO fill in the request parameters and test response.
      */
     @Test
@@ -97,7 +96,6 @@ public class StudentsControllerTest {
     /**
      * This test is used to check that the api available to client through
      * '/solve' to the features of solve() works as desired.
-     *
      * TODO fill in the request parameters and test response.
      */
     @Test

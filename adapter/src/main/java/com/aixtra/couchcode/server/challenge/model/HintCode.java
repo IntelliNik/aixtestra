@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 
-package com.aixtra.couchcode.server.model;
+package com.aixtra.couchcode.server.challenge.model;
 
 import io.micronaut.core.annotation.*;
 
@@ -25,7 +25,7 @@ public enum HintCode {
     RECOGNIZED("RECOGNIZED"),
     NOT_RECOGNIZED("NOT_RECOGNIZED");
 
-    private String value;
+    private final String value;
 
     HintCode(String value) {
         this.value = value;

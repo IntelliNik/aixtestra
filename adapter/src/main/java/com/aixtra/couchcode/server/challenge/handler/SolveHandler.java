@@ -1,6 +1,5 @@
-package com.aixtra.couchcode.server.handler;
+package com.aixtra.couchcode.server.challenge.handler;
 
-import com.aixtra.couchcode.server.model.Solution;
 import com.aixtra.couchcode.client.ocr.OCRClient;
 import com.aixtra.couchcode.util.data.option.Option;
 import com.aixtra.couchcode.util.data.option.Some;
@@ -25,7 +24,7 @@ public class SolveHandler {
         this.client = client;
     }
 
-    public @NotNull Mono<Solution> solve(@NotNull Option<byte[]> body) {
+    public @NotNull Mono<byte[]> solve(@NotNull Option<byte[]> body) {
         if (!(body instanceof Some<byte[]> data)) {
             return Mono.error(new HttpStatusException(HttpStatus.BAD_REQUEST, "No file uploaded"));
         }
@@ -36,8 +35,7 @@ public class SolveHandler {
                 ).map(bytes -> {
                     String json = new String(bytes, StandardCharsets.UTF_8);
                     LOGGER.info("Got response from OCR: {}", json);
-                    //TODO: parse into solution
-                    return new Solution();
-                }).defaultIfEmpty(new Solution());
+                    return bytes;
+                }).defaultIfEmpty(new byte[0]);
     }
 }
