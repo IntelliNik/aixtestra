@@ -36,7 +36,7 @@ public abstract class RatingApi {
 
     public Mono<Void> register() {
         String currentBearer = store.currentBearerAsAuth();
-        LOGGER.info("Registering for next challenge with Token: {}...", currentBearer.substring(0, 6));
+        LOGGER.info("Registering for next challenge with Token: {}...", currentBearer.substring(7, 15));
         return Mono.defer(()->register(currentBearer));
     }
 

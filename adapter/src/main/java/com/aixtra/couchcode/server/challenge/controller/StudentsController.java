@@ -10,10 +10,10 @@
  * Do not edit the class manually.
  */
 
-package com.aixtra.couchcode.server.controller;
+package com.aixtra.couchcode.server.challenge.controller;
 
-import com.aixtra.couchcode.server.handler.SolveHandler;
-import com.aixtra.couchcode.server.model.Solution;
+import com.aixtra.couchcode.server.challenge.handler.SolveHandler;
+import com.aixtra.couchcode.server.challenge.model.Solution;
 import com.aixtra.couchcode.util.data.option.Option;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpHeaders;
@@ -92,10 +92,10 @@ public class StudentsController {
     @Post(uri = "/solve")
     @Produces(value = {"application/json"})
     @Consumes(value = {"image/png"})
-    public Mono<Solution> solve(@Nullable HttpHeaders headers, @Body  byte[] _body) {
+    public Mono<byte[]> solve(@Nullable HttpHeaders headers, @Body  byte[] _body) {
         LOGGER.info("Got solve request with Headers: {} Body: {}", headers.asMap(), _body);
         return solverHandler.solve(Option.of(_body))
-                .onErrorResume(e -> Mono.error(new HttpStatusException(HttpStatus.I_AM_A_TEAPOT, e.getMessage())));
+                .onErrorResume(e -> Mono.error(new HttpStatusException(HttpStatus.I_AM_A_TEAPOT, "I tried nothing and am all out of ideas")));
     }
 
 }

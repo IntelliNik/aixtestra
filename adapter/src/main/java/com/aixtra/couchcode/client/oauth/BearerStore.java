@@ -44,7 +44,7 @@ public class BearerStore {
     }
 
     public String currentBearerAsAuth() {
-        return "Bearer "+bearer.get();
+        return "Bearer " + bearer.get();
     }
 
     /**
@@ -60,7 +60,7 @@ public class BearerStore {
                         LOGGER.trace("Invalid bearer Json response contains: token:{} expires_in:{}", json.has("access_token"), json.has("expires_in"));
                         return Mono.error(new IllegalArgumentException("Invalid bearer token response %s".formatted(json)));
                     } else {
-                        LOGGER.trace("Got bearer response{}",json);
+                        LOGGER.trace("Got bearer response{}", json);
                         return Mono.just(json);
                     }
                 })
@@ -73,9 +73,9 @@ public class BearerStore {
             JSONObject json = some.getValue();
             String accessToken = json.getString("access_token");
             bearer.set(accessToken);
-            LOGGER.info("Got new bearer token: {}", accessToken);
+            LOGGER.info("Got new bearer token: {}...", accessToken.substring(0, 8));
             return json.getInt("expires_in");
-        }else{
+        } else {
             LOGGER.error("Could not get bearer token");
         }
         return 1;

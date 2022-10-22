@@ -41,7 +41,7 @@ public abstract class TasksApi {
 
     public Mono<TaskWithSolution> generateTask(TaskDifficulty difficulty) {
         String currentBearer = store.currentBearerAsAuth();
-        LOGGER.info("Generating Task wit Difficulty {} with Token: {}...", difficulty, currentBearer.substring(0, 6));
+        LOGGER.info("Generating Task wit Difficulty {} with Token: {}...", difficulty, currentBearer.substring(7, 15));
         return Mono.defer(() -> generateTask(currentBearer, difficulty));
     }
 

@@ -22,7 +22,6 @@ public abstract class BearerClient {
     private final String id;
 
     BearerClient(@NonNull @Value("${backend.client-id}") String id, @NonNull @Value("${backend.client-secret}") String secret) {
-        System.out.printf("%s %s%n", id, secret);
         this.id = id;
         this.secret = secret;
     }
@@ -34,7 +33,7 @@ public abstract class BearerClient {
                     "client_id", id,
                     "client_secret", secret
             ));
-            return login(dataString)
+            return Mono.defer(()->login(dataString))
                     .map(JSONObject::new);
         } catch (UnsupportedEncodingException e) {
             return Mono.error(e);
