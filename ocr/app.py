@@ -17,7 +17,9 @@ def readb64(data):
 
 @app.route("/compute")
 def compute():
+    print("Request received, starting OCR.")
     if request.data:
         image = readb64(request.data)
         response = parse_image(image)
+        print("Done, returning response.")
     return response
