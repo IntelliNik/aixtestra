@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: solution
+  labels:
+    app: solution
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: solution
+  template:
+    metadata:
+      labels:
+        date: "{{ .Values.metadata.date }}"
+        app: solution
+    spec:
+      containers:
+        - name: solution
+          image: europe-west3-docker.pkg.dev/creators-contest-2022/team-{{.Values.team}}/solution:{{.Values.image.tag}}
+          imagePullPolicy: {{.Values.image.pullPolicy}}
+          ports:
+            - containerPort: 8080
+          env:
+            - name: CLIENT_ID
+              value: {{.Values.auth.clientId}}
+            - name: CLIENT_SECRET
+              value: {{.Values.auth.clientSecret}}
+            - name: KEYCLOAK_BASE_URL
+              value: {{.Values.auth.keycloakBaseUrl}}
+            - name: BACKEND_BASE_URL
+              value: {{.Values.backend.baseUrl}}

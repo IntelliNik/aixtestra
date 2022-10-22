@@ -1,0 +1,23 @@
+micronaut:
+  application:
+    name: codeYourCouch
+  server:
+    port: 8080
+    context-path: "/"
+
+netty:
+  default:
+    allocator:
+      max-order: 3
+
+backend:
+  baseUrl: ${BACKEND_BASE_URL:'http://creators-contest-2022.itestra.de'}
+
+jackson:
+  serialization:
+    writeEnumsUsingToString: true
+    writeDatesAsTimestamps: false
+  deserialization:
+    readEnumsUsingToString: true
+    failOnUnknownProperties: false
+    failOnInvalidSubtype: false
