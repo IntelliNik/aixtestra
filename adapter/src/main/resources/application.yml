@@ -16,11 +16,11 @@ backend:
   client-id: aixtra
   client-secret: e88b73df-df66-4196-8860-43d5f4f27d2d
 
-jackson:
-  serialization:
-    writeEnumsUsingToString: true
-    writeDatesAsTimestamps: false
-  deserialization:
-    readEnumsUsingToString: true
-    failOnUnknownProperties: false
-    failOnInvalidSubtype: false
+  jackson:
+    serialization:
+      writeEnumsUsingToString: true
+      writeDatesAsTimestamps: false
+    deserialization:
+      readEnumsUsingToString: true
+      failOnUnknownProperties: false
+      failOnInvalidSubtype: false

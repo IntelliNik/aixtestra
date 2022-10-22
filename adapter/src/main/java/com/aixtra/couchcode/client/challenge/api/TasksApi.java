@@ -30,7 +30,7 @@ import javax.validation.constraints.NotNull;
 import static io.micronaut.http.HttpHeaders.AUTHORIZATION;
 
 @Generated(value = "org.openapitools.codegen.languages.JavaMicronautClientCodegen", date = "2022-10-22T18:01:35.219427+02:00[Europe/Berlin]")
-@Client("${openapi-micronaut-client-base-path}")
+@Client("${backend.baseUrl}")
 public abstract class TasksApi {
     private static final Logger LOGGER = LoggerFactory.getLogger(TasksApi.class);
     private final BearerStore store;
