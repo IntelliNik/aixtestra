@@ -9,21 +9,18 @@ from parse_table import parse_image
 app = Flask(__name__)
 
 
-def readb64(data):
-    nparr = np.fromstring(base64.b64decode(data), np.uint8)
-    img = cv2.imdecode(nparr, 0)
-    return img
-
 @app.route("/ping")
 def ping():
     return "pong"
 
-@app.route("/compute", methods=['POST'])
+
+@app.route("/compute", methods=["POST"])
 def compute():
     print("Request received, starting OCR.")
 
     if request.data:
-        image = readb64(request.data)
+        data = np.fromstring(request.data, np.uint8)
+        image = cv2.imdecode(data, 0)
         response = parse_image(image)
         print("Done, returning response.")
         return response
