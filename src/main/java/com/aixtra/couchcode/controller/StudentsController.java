@@ -16,6 +16,8 @@ import io.micronaut.http.annotation.*;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.exceptions.HttpStatusException;
@@ -34,6 +36,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @Controller
 @Tag(name = "Students", description = "The Students API")
 public class StudentsController {
+    private static final Logger LOGGER  = LoggerFactory.getLogger(StudentsController.class);
     /**
      * A simple endpoint to test interaction
      * This endpoint is used to determine, whether or not the system is  generally available. It is used before every rating run. System which  are not available or unable to react to the ping in time, will be  disqualified and not further considered during the rating run. 
@@ -44,16 +47,18 @@ public class StudentsController {
         summary = "A simple endpoint to test interaction",
         responses = {
             @ApiResponse(responseCode = "200", description = "OK")
-        },
-        security = {
-            @SecurityRequirement(name = "oAuth2", scopes = {  })
         }
+        /*security = {
+            @SecurityRequirement(name = "oAuth2", scopes = {  })
+        }*/
     )
     @Get(uri="/ping")
     @Produces(value = {})
-    @Secured({SecurityRule.IS_AUTHENTICATED})
+    //@Secured({SecurityRule.IS_AUTHENTICATED})
     public Mono<Void> ping() {
         // TODO implement ping();
+        LOGGER.info("Got pinged");
+        //return Mono.empty();
         return Mono.error(new HttpStatusException(HttpStatus.NOT_IMPLEMENTED, null));
     }
 
