@@ -1,0 +1,8 @@
+name: Release new Version
+on: [push]
+jobs:
+  push-ocr-image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: ./deplay.sh
