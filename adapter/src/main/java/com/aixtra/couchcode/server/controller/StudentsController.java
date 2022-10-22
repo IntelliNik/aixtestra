@@ -10,10 +10,10 @@
  * Do not edit the class manually.
  */
 
-package com.aixtra.couchcode.controller;
+package com.aixtra.couchcode.server.controller;
 
-import com.aixtra.couchcode.handler.SolveHandler;
-import com.aixtra.couchcode.model.Solution;
+import com.aixtra.couchcode.server.handler.SolveHandler;
+import com.aixtra.couchcode.server.model.Solution;
 import com.aixtra.couchcode.util.data.option.Option;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpHeaders;

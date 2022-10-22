@@ -1,7 +1,7 @@
-package com.aixtra.couchcode.handler;
+package com.aixtra.couchcode.server.handler;
 
-import com.aixtra.couchcode.model.Solution;
-import com.aixtra.couchcode.rest.OCRClient;
+import com.aixtra.couchcode.server.model.Solution;
+import com.aixtra.couchcode.client.ocr.OCRClient;
 import com.aixtra.couchcode.util.data.option.Option;
 import com.aixtra.couchcode.util.data.option.Some;
 import io.micronaut.context.annotation.Bean;

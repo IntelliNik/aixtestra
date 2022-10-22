@@ -1,6 +1,6 @@
 /*
- * Catalog Reader
- * The students solution to identifying prices on a furniture catalog
+ * Client API
+ * API called by backend
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -10,12 +10,9 @@
  * Do not edit the class manually.
  */
 
-package com.aixtra.couchcode.model;
+package com.aixtra.couchcode.client.challenge.model;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.aixtra.couchcode.model.Money;
-import com.aixtra.couchcode.model.OptionSelection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -25,7 +22,6 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 import io.micronaut.core.annotation.*;
 import javax.annotation.Generated;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * PriceDefinitionEntry
@@ -36,7 +32,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
   PriceDefinitionEntry.JSON_PROPERTY_OPTION_SELECTIONS
 })
 @JsonTypeName("PriceDefinitionEntry")
-@Generated(value="org.openapitools.codegen.languages.JavaMicronautServerCodegen", date="2022-10-22T16:30:57.436439+02:00[Europe/Berlin]")
+@Generated(value="org.openapitools.codegen.languages.JavaMicronautClientCodegen", date="2022-10-22T18:01:35.219427+02:00[Europe/Berlin]")
 @Introspected
 public class PriceDefinitionEntry {
     public static final String JSON_PROPERTY_ID = "id";
@@ -46,9 +42,12 @@ public class PriceDefinitionEntry {
     private Money value;
 
     public static final String JSON_PROPERTY_OPTION_SELECTIONS = "optionSelections";
-    private List<OptionSelection> optionSelections = null;
+    private List<OptionSelection> optionSelections = new ArrayList<>();
 
-    public PriceDefinitionEntry() {
+    public PriceDefinitionEntry(UUID id, Money value, List<OptionSelection> optionSelections) {
+        this.id = id;
+        this.value = value;
+        this.optionSelections = optionSelections;
     }
 
     public PriceDefinitionEntry id(UUID id) {
@@ -60,16 +59,15 @@ public class PriceDefinitionEntry {
      * Get id
      * @return id
      **/
-    @Nullable
-    @Schema(name = "id", required = false)
+    @NotNull
     @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public UUID getId() {
         return id;
     }
 
     @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setId(UUID id) {
         this.id = id;
     }
@@ -84,16 +82,15 @@ public class PriceDefinitionEntry {
      * @return value
      **/
     @Valid
-    @Nullable
-    @Schema(name = "value", required = false)
+    @NotNull
     @JsonProperty(JSON_PROPERTY_VALUE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public Money getValue() {
         return value;
     }
 
     @JsonProperty(JSON_PROPERTY_VALUE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setValue(Money value) {
         this.value = value;
     }
@@ -104,9 +101,6 @@ public class PriceDefinitionEntry {
     }
 
     public PriceDefinitionEntry addOptionSelectionsItem(OptionSelection optionSelectionsItem) {
-        if (this.optionSelections == null) {
-            this.optionSelections = new ArrayList<>();
-        }
         this.optionSelections.add(optionSelectionsItem);
         return this;
     }
@@ -115,16 +109,15 @@ public class PriceDefinitionEntry {
      * Get optionSelections
      * @return optionSelections
      **/
-    @Nullable
-    @Schema(name = "optionSelections", required = false)
+    @NotNull
     @JsonProperty(JSON_PROPERTY_OPTION_SELECTIONS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public List<OptionSelection> getOptionSelections() {
         return optionSelections;
     }
 
     @JsonProperty(JSON_PROPERTY_OPTION_SELECTIONS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setOptionSelections(List<OptionSelection> optionSelections) {
         this.optionSelections = optionSelections;
     }

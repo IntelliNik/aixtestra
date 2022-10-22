@@ -1,6 +1,6 @@
 /*
- * Catalog Reader
- * The students solution to identifying prices on a furniture catalog
+ * Client API
+ * API called by backend
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -10,21 +10,18 @@
  * Do not edit the class manually.
  */
 
-package com.aixtra.couchcode.model;
+package com.aixtra.couchcode.client.challenge.model;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.aixtra.couchcode.model.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.*;
 
 import javax.validation.constraints.*;
-import javax.validation.Valid;
+
 import io.micronaut.core.annotation.*;
 import javax.annotation.Generated;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * OptionRange
@@ -35,7 +32,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
   OptionRange.JSON_PROPERTY_OPTIONS
 })
 @JsonTypeName("OptionRange")
-@Generated(value="org.openapitools.codegen.languages.JavaMicronautServerCodegen", date="2022-10-22T16:30:57.436439+02:00[Europe/Berlin]")
+@Generated(value="org.openapitools.codegen.languages.JavaMicronautClientCodegen", date="2022-10-22T18:01:35.219427+02:00[Europe/Berlin]")
 @Introspected
 public class OptionRange {
     public static final String JSON_PROPERTY_ID = "id";
@@ -45,9 +42,12 @@ public class OptionRange {
     private String name;
 
     public static final String JSON_PROPERTY_OPTIONS = "options";
-    private List<Option> options = null;
+    private List<Option> options = new ArrayList<>();
 
-    public OptionRange() {
+    public OptionRange(UUID id, String name, List<Option> options) {
+        this.id = id;
+        this.name = name;
+        this.options = options;
     }
 
     public OptionRange id(UUID id) {
@@ -59,16 +59,15 @@ public class OptionRange {
      * Get id
      * @return id
      **/
-    @Nullable
-    @Schema(name = "id", required = false)
+    @NotNull
     @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public UUID getId() {
         return id;
     }
 
     @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setId(UUID id) {
         this.id = id;
     }
@@ -82,16 +81,15 @@ public class OptionRange {
      * Get name
      * @return name
      **/
-    @Nullable
-    @Schema(name = "name", required = false)
+    @NotNull
     @JsonProperty(JSON_PROPERTY_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getName() {
         return name;
     }
 
     @JsonProperty(JSON_PROPERTY_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setName(String name) {
         this.name = name;
     }
@@ -102,9 +100,6 @@ public class OptionRange {
     }
 
     public OptionRange addOptionsItem(Option optionsItem) {
-        if (this.options == null) {
-            this.options = new ArrayList<>();
-        }
         this.options.add(optionsItem);
         return this;
     }
@@ -113,16 +108,15 @@ public class OptionRange {
      * Get options
      * @return options
      **/
-    @Nullable
-    @Schema(name = "options", required = false)
+    @NotNull
     @JsonProperty(JSON_PROPERTY_OPTIONS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public List<Option> getOptions() {
         return options;
     }
 
     @JsonProperty(JSON_PROPERTY_OPTIONS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setOptions(List<Option> options) {
         this.options = options;
     }

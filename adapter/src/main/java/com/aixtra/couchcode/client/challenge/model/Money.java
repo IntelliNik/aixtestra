@@ -1,6 +1,6 @@
 /*
- * Catalog Reader
- * The students solution to identifying prices on a furniture catalog
+ * Client API
+ * API called by backend
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -10,17 +10,16 @@
  * Do not edit the class manually.
  */
 
-package com.aixtra.couchcode.model;
+package com.aixtra.couchcode.client.challenge.model;
 
 import java.util.Objects;
-import java.util.Arrays;
+
 import com.fasterxml.jackson.annotation.*;
 
 import javax.validation.constraints.*;
-import javax.validation.Valid;
+
 import io.micronaut.core.annotation.*;
 import javax.annotation.Generated;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * Money
@@ -30,7 +29,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
   Money.JSON_PROPERTY_AMOUNT_IN_MINOR_UNITS
 })
 @JsonTypeName("Money")
-@Generated(value="org.openapitools.codegen.languages.JavaMicronautServerCodegen", date="2022-10-22T16:30:57.436439+02:00[Europe/Berlin]")
+@Generated(value="org.openapitools.codegen.languages.JavaMicronautClientCodegen", date="2022-10-22T18:01:35.219427+02:00[Europe/Berlin]")
 @Introspected
 public class Money {
     public static final String JSON_PROPERTY_CURRENCY_UNIT = "currencyUnit";
@@ -39,7 +38,9 @@ public class Money {
     public static final String JSON_PROPERTY_AMOUNT_IN_MINOR_UNITS = "amountInMinorUnits";
     private Long amountInMinorUnits;
 
-    public Money() {
+    public Money(String currencyUnit, Long amountInMinorUnits) {
+        this.currencyUnit = currencyUnit;
+        this.amountInMinorUnits = amountInMinorUnits;
     }
 
     public Money currencyUnit(String currencyUnit) {
@@ -51,16 +52,15 @@ public class Money {
      * Get currencyUnit
      * @return currencyUnit
      **/
-    @Nullable
-    @Schema(name = "currencyUnit", required = false)
+    @NotNull
     @JsonProperty(JSON_PROPERTY_CURRENCY_UNIT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getCurrencyUnit() {
         return currencyUnit;
     }
 
     @JsonProperty(JSON_PROPERTY_CURRENCY_UNIT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setCurrencyUnit(String currencyUnit) {
         this.currencyUnit = currencyUnit;
     }
@@ -74,16 +74,15 @@ public class Money {
      * Get amountInMinorUnits
      * @return amountInMinorUnits
      **/
-    @Nullable
-    @Schema(name = "amountInMinorUnits", required = false)
+    @NotNull
     @JsonProperty(JSON_PROPERTY_AMOUNT_IN_MINOR_UNITS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public Long getAmountInMinorUnits() {
         return amountInMinorUnits;
     }
 
     @JsonProperty(JSON_PROPERTY_AMOUNT_IN_MINOR_UNITS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setAmountInMinorUnits(Long amountInMinorUnits) {
         this.amountInMinorUnits = amountInMinorUnits;
     }

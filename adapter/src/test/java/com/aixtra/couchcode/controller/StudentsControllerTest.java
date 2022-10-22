@@ -1,6 +1,7 @@
 package com.aixtra.couchcode.controller;
 
-import com.aixtra.couchcode.model.Solution;
+import com.aixtra.couchcode.server.controller.StudentsController;
+import com.aixtra.couchcode.server.model.Solution;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;

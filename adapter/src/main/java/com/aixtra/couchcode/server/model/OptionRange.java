@@ -10,47 +10,43 @@
  * Do not edit the class manually.
  */
 
-package com.aixtra.couchcode.model;
+package com.aixtra.couchcode.server.model;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.aixtra.couchcode.model.OptionRange;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.*;
 
-import javax.validation.constraints.*;
-import javax.validation.Valid;
 import io.micronaut.core.annotation.*;
 import javax.annotation.Generated;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
- * Feature
+ * OptionRange
  */
 @JsonPropertyOrder({
-  Feature.JSON_PROPERTY_ID,
-  Feature.JSON_PROPERTY_NAME_IN_FORMULA,
-  Feature.JSON_PROPERTY_OPTION_RANGES
+  OptionRange.JSON_PROPERTY_ID,
+  OptionRange.JSON_PROPERTY_NAME,
+  OptionRange.JSON_PROPERTY_OPTIONS
 })
-@JsonTypeName("Feature")
+@JsonTypeName("OptionRange")
 @Generated(value="org.openapitools.codegen.languages.JavaMicronautServerCodegen", date="2022-10-22T16:30:57.436439+02:00[Europe/Berlin]")
 @Introspected
-public class Feature {
+public class OptionRange {
     public static final String JSON_PROPERTY_ID = "id";
     private UUID id;
 
-    public static final String JSON_PROPERTY_NAME_IN_FORMULA = "nameInFormula";
-    private String nameInFormula;
+    public static final String JSON_PROPERTY_NAME = "name";
+    private String name;
 
-    public static final String JSON_PROPERTY_OPTION_RANGES = "optionRanges";
-    private List<OptionRange> optionRanges = null;
+    public static final String JSON_PROPERTY_OPTIONS = "options";
+    private List<Option> options = null;
 
-    public Feature() {
+    public OptionRange() {
     }
 
-    public Feature id(UUID id) {
+    public OptionRange id(UUID id) {
         this.id = id;
         return this;
     }
@@ -73,58 +69,58 @@ public class Feature {
         this.id = id;
     }
 
-    public Feature nameInFormula(String nameInFormula) {
-        this.nameInFormula = nameInFormula;
+    public OptionRange name(String name) {
+        this.name = name;
         return this;
     }
 
     /**
-     * Get nameInFormula
-     * @return nameInFormula
+     * Get name
+     * @return name
      **/
     @Nullable
-    @Schema(name = "nameInFormula", required = false)
-    @JsonProperty(JSON_PROPERTY_NAME_IN_FORMULA)
+    @Schema(name = "name", required = false)
+    @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getNameInFormula() {
-        return nameInFormula;
+    public String getName() {
+        return name;
     }
 
-    @JsonProperty(JSON_PROPERTY_NAME_IN_FORMULA)
+    @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNameInFormula(String nameInFormula) {
-        this.nameInFormula = nameInFormula;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Feature optionRanges(List<OptionRange> optionRanges) {
-        this.optionRanges = optionRanges;
+    public OptionRange options(List<Option> options) {
+        this.options = options;
         return this;
     }
 
-    public Feature addOptionRangesItem(OptionRange optionRangesItem) {
-        if (this.optionRanges == null) {
-            this.optionRanges = new ArrayList<>();
+    public OptionRange addOptionsItem(Option optionsItem) {
+        if (this.options == null) {
+            this.options = new ArrayList<>();
         }
-        this.optionRanges.add(optionRangesItem);
+        this.options.add(optionsItem);
         return this;
     }
 
     /**
-     * Get optionRanges
-     * @return optionRanges
+     * Get options
+     * @return options
      **/
     @Nullable
-    @Schema(name = "optionRanges", required = false)
-    @JsonProperty(JSON_PROPERTY_OPTION_RANGES)
+    @Schema(name = "options", required = false)
+    @JsonProperty(JSON_PROPERTY_OPTIONS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<OptionRange> getOptionRanges() {
-        return optionRanges;
+    public List<Option> getOptions() {
+        return options;
     }
 
-    @JsonProperty(JSON_PROPERTY_OPTION_RANGES)
+    @JsonProperty(JSON_PROPERTY_OPTIONS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOptionRanges(List<OptionRange> optionRanges) {
-        this.optionRanges = optionRanges;
+    public void setOptions(List<Option> options) {
+        this.options = options;
     }
 
     @Override
@@ -135,24 +131,24 @@ public class Feature {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Feature feature = (Feature) o;
-        return Objects.equals(this.id, feature.id) &&
-            Objects.equals(this.nameInFormula, feature.nameInFormula) &&
-            Objects.equals(this.optionRanges, feature.optionRanges);
+        OptionRange optionRange = (OptionRange) o;
+        return Objects.equals(this.id, optionRange.id) &&
+            Objects.equals(this.name, optionRange.name) &&
+            Objects.equals(this.options, optionRange.options);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nameInFormula, optionRanges);
+        return Objects.hash(id, name, options);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class Feature {\n");
+        sb.append("class OptionRange {\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
-        sb.append("    nameInFormula: ").append(toIndentedString(nameInFormula)).append("\n");
-        sb.append("    optionRanges: ").append(toIndentedString(optionRanges)).append("\n");
+        sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb.append("    options: ").append(toIndentedString(options)).append("\n");
         sb.append("}");
         return sb.toString();
     }

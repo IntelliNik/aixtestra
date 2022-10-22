@@ -10,17 +10,9 @@
  * Do not edit the class manually.
  */
 
-package com.aixtra.couchcode.model;
+package com.aixtra.couchcode.server.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.*;
-
-import javax.validation.constraints.*;
-import javax.validation.Valid;
 import io.micronaut.core.annotation.*;
-import javax.annotation.Generated;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

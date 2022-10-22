@@ -1,4 +1,4 @@
-package com.aixtra.couchcode.rest;
+package com.aixtra.couchcode.client.ocr;
 
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Get;

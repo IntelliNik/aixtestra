@@ -44,7 +44,7 @@ Name | Type | Description  | Notes
 **_body** | `CompletedFileUpload` | The task image in base64 encoding.  | [optional parameter]
 
 ### Return type
-[**Solution**](../../docs/models/Solution.md)
+[**Solution**](../modelsn.md)
 
 ### Authorization
 * **oAuth2**
