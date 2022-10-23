@@ -14,20 +14,24 @@ def parse_file(file):
 
 
 def parse_image(image):
+    # Crop image
+    image = image[340:-413, :-50]
     length = np.array(image).shape[1] // 100
 
     # Convert image to gray scale
-    grey_scale = cv2.threshold(image, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-    grey_scale = 255 - grey_scale
+    thresholded = cv2.adaptiveThreshold(
+        image, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 5, 2
+    )
+    thresholded_inv = 255 - thresholded
 
     # Detect horizontal lines
     horizontal_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (length, 1))
-    horizontal_detect = cv2.erode(grey_scale, horizontal_kernel, iterations=3)
+    horizontal_detect = cv2.erode(thresholded_inv, horizontal_kernel, iterations=3)
     hor_lines = cv2.dilate(horizontal_detect, horizontal_kernel, iterations=3)
 
     # Detect vertical
     vertical_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, length))
-    vertical_detect = cv2.erode(grey_scale, vertical_kernel, iterations=3)
+    vertical_detect = cv2.erode(thresholded_inv, vertical_kernel, iterations=3)
     ver_lines = cv2.dilate(vertical_detect, vertical_kernel, iterations=3)
 
     # Get the lines as [row_start, row_end, col_start, col_end]
@@ -62,7 +66,7 @@ def parse_image(image):
         if column_end:
             end_x = get_column(column_end)[1]
 
-        cell = image[start_y:end_y, start_x:end_x]
+        cell = thresholded[start_y:end_y, start_x:end_x]
 
         if rotate:
             cell = cv2.rotate(cell, cv2.ROTATE_90_CLOCKWISE)
@@ -80,7 +84,8 @@ def parse_image(image):
 
             lines = text.split("\n")
             new_feature_indices = filter(
-                lambda index: ":" in lines[index], range(len(lines))
+                lambda index: ":" in lines[index] or "«" in lines[index],
+                range(len(lines)),
             )
             feature_texts = [
                 " ".join(lines[start:end])
@@ -91,15 +96,6 @@ def parse_image(image):
 
             values = {}
 
-            # test precision of feature's name
-            def fix_name(name, simple_features):
-                if len(simple_features) == 0:
-                    return name
-                for feature_name in simple_features:
-                    if name in feature_name:
-                        return feature_name
-                return name
-
             for feature_text in feature_texts:
                 matches = re.findall("^\W*(\S+):\s+(.+)$", feature_text)
 
@@ -107,7 +103,7 @@ def parse_image(image):
                     continue
 
                 name, value = matches[0]
-                name = fix_name(name.strip(), simple_features)
+                name = name.strip()
                 value = value.strip()
 
                 if name not in simple_features:
@@ -134,9 +130,9 @@ def parse_image(image):
 
     def check_row_delimiter(row, column):
         # Check if a cell has a row delimiter at the top
-        end_x = get_column(column)[1]
+        start_x, end_x = get_column(column)
 
-        return hor_table_lines[row][2] < end_x
+        return hor_table_lines[row][2] < (start_x + end_x) / 2
 
     def get_option_range():
         # Parse the option range feature
@@ -296,19 +292,23 @@ def find_long_horizontal_lines(hor_lines):
     # Each entry is [row_start, row_end, col_start, col_end]
     hor_table_lines = []
 
-    # We look for one long (min. half image width) line per row.
+    # We look for long lines in each row
     for row in range(height):
+        line_pixels = 0
         line_start = None
+        line_end = None
 
         for column in range(width):
             if hor_lines[row, column]:
-                if line_start is None:
-                    line_start = column
-            else:
-                if line_start and (column - line_start) > width / 5:
-                    hor_table_lines.append([row, row, line_start, column])
+                line_pixels += 1
 
-                line_start = None
+                if not line_start:
+                    line_start = column
+
+                line_end = column
+
+        if line_pixels > 200 and line_start < width / 2:
+            hor_table_lines.append([row, row, line_start, line_end])
 
     # Merge adjacent lines
     i = 0
@@ -316,11 +316,11 @@ def find_long_horizontal_lines(hor_lines):
         curr = hor_table_lines[i]
         next = hor_table_lines[i + 1]
 
-        if curr[0] + 1 == next[0] and curr[2:] == next[2:]:
-            curr[1] += 1
+        if next[0] - curr[0] < 20:
+            curr[1] = next[1]
             hor_table_lines.remove(next)
-
-        i += 1
+        else:
+            i += 1
 
     return hor_table_lines
 
