@@ -137,13 +137,20 @@ def parse_image(image):
     def get_option_range():
         # Parse the option range feature
         name = parse_cell(1, 0, 1, 1)
+        options = [parse_cell(row, 1) for row in range(2, row_count)]
 
-        # Find option range delimiters
+        # Find option range delimiters by looking at lines
         option_range_delimiter_indices = []
         for row_index in range(2, row_count):
             if check_row_delimiter(row_index, 0):
                 option_range_delimiter_indices.append(row_index)
 
+        # Fallback to matching by name
+        if len(option_range_delimiter_indices) == 1:
+            fallback_delimiter = get_option_range_delimiter_fallback(options) + 2
+            option_range_delimiter_indices.append(fallback_delimiter)
+
+        # Add last row
         option_range_delimiter_indices.append(row_count)
 
         # Parse option range names
@@ -153,7 +160,7 @@ def parse_image(image):
             option_ranges.append(
                 {
                     "name": parse_cell(start, 0, row_end=end - 1, rotate=True),
-                    "values": [parse_cell(row, 1) for row in range(start, end)],
+                    "values": [options[row - 2] for row in range(start, end)],
                 }
             )
 
@@ -323,6 +330,25 @@ def find_long_horizontal_lines(hor_lines):
             i += 1
 
     return hor_table_lines
+
+
+def common_prefix_length(s1, s2):
+    min_len = min(len(s1), len(s2))
+
+    for index in range(min_len):
+        if s1[index] != s2[index]:
+            return index
+
+    return min_len
+
+
+def get_option_range_delimiter_fallback(options):
+    # find the point with the greatest levenstein distance
+    prefix_match = [
+        common_prefix_length(t1, t2) for t1, t2 in itertools.pairwise(options)
+    ]
+    min_index = min(range(len(prefix_match)), key=prefix_match.__getitem__)
+    return min_index + 1
 
 
 if __name__ == "__main__":
