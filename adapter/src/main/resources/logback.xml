@@ -9,7 +9,7 @@
         <appender-ref ref="console"/>
     </logger>
 
-    <logger name="com.aixtra.couchcode.server.challenge.controller.StudentsController" level="trace" additivity="false">
+    <!--<logger name="com.aixtra.couchcode.server.challenge.controller.StudentsController" level="trace" additivity="false">
         <appender-ref ref="console"/>
-    </logger>
+    </logger>-->
 </configuration>
