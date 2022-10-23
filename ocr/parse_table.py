@@ -97,12 +97,12 @@ def parse_image(image):
             values = {}
 
             for feature_text in feature_texts:
-                matches = re.findall("\W*(\S+):\s+(.+)", feature_text)
+                matches = re.findall("^(.*\s)?(\S+):\s+(.+)$", feature_text)
 
                 if not matches:
                     continue
 
-                name, value = matches[0]
+                _, name, value = matches[0]
                 name = name.strip()
                 value = value.strip()
 
