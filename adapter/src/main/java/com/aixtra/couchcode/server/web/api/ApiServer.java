@@ -9,6 +9,7 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.exceptions.HttpStatusException;
+import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
 import java.util.Map;
@@ -47,9 +48,7 @@ public class ApiServer {
     }
 
     @Get(value = "/request-new/{type}", produces = MediaType.APPLICATION_JSON)
-    public String requestNew(String type) {
-        return runner.runNewTest(TaskDifficulty.fromValue(type.toUpperCase()))
-                .subscribeOn(Schedulers.newParallel("test-runner"))
-                .blockOptional().orElse("{}");
+    public Mono<String> requestNew(String type) {
+        return runner.runNewTest(TaskDifficulty.fromValue(type.toUpperCase()));
     }
 }
