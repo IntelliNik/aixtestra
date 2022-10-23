@@ -26,6 +26,7 @@ public class ChallengeRequester {
     }
 
 
+    @PostConstruct
     public void register(StartupLatch latch) {
         latch.awaitStartup();
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
