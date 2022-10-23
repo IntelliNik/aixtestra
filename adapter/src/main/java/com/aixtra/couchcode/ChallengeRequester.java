@@ -25,7 +25,6 @@ public class ChallengeRequester {
         this.rating = rating;
     }
 
-
     @PostConstruct
     public void register(StartupLatch latch) {
         latch.awaitStartup();
