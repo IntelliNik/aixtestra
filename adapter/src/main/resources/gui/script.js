@@ -1,5 +1,5 @@
 async function refresh() {
-    await fetch("/gui/api/images")
+    await fetch("api/images")
         .then(response => response.json())
         .then(data => {
             const rating = data.rating;
@@ -20,7 +20,7 @@ async function newEvaluation() {
 }
 
 async function requestImage(difficulty) {
-    await fetch(`/gui/api/request-new/${difficulty}`, {
+    await fetch(`api/request-new/${difficulty}`, {
         method: "GET"
     }).then(result => result.json())
         .then(data => {
@@ -29,8 +29,8 @@ async function requestImage(difficulty) {
                 document.getElementById("request-result").innerHTML = `<p>Something went wrong</p>`
                 return
             }
-            const {id, score, maxScore} = data
-            document.getElementById("request-result").innerHTML = `<p>Id: ${id}</p><p>Score: ${score}</p><p>Max score: ${maxScore}</p>`
+            const {id, score, maxScore, image} = data
+            document.getElementById("request-result").innerHTML = `<p>Id: ${id}</p><p>Score: ${score}</p><p>Max score: ${maxScore}</p><img src="api/${image}" alt="${image}" />`
         })
 }
 
@@ -45,7 +45,7 @@ function updateRequested(images) {
 function createImageList(images) {
     let list = ""
     for (const image of images) {
-        list += `<li><h3>${image.replace("images", "").replace("rating", "").replace("requested", "").replace("/", "").replace("/", "").trim()}</h3><img src="/gui/api/${image}" alt="${image}" /> </li>`;
+        list += `<li><h3>${image.replace("images", "").replace("rating", "").replace("requested", "").replace("/", "").replace("/", "").trim()}</h3><img src="api/${image}" alt="${image}" /> </li>`;
     }
     return list;
 }

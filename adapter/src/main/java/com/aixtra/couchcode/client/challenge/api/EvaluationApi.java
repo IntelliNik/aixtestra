@@ -38,7 +38,7 @@ public abstract class EvaluationApi {
 
     public Mono<EvaluationScore> evaluate(String taskId, byte[] solution) {
         String currentBearer = store.currentBearerAsAuth();
-        LOGGER.info("Evaluating Solution {} for taskId {} with Token: {}...", solution, taskId, currentBearer.substring(7, 15));
+        LOGGER.info("Evaluating Solution {} for taskId {} with Token: {}...", solution.hashCode(), taskId, currentBearer.substring(7, 15));
         return Mono.defer(() -> evaluate(currentBearer, taskId, solution));
     }
 

@@ -14,11 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 import reactor.util.function.Tuples;
-import reactor.util.retry.Retry;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.time.Duration;
 import java.util.Base64;
 
 @Singleton
@@ -38,20 +36,19 @@ public class TestRunner {
 
     public Mono<String> runNewTest(TaskDifficulty difficulty) {
         return tasksApi.generateTask(difficulty)
-                .retryWhen(Retry.backoff(5, Duration.ofSeconds(1))
-                        .doBeforeRetry(signal -> LOGGER.warn("Failed to generate task {} times: {}, retrying...", signal.totalRetries() + 1, signal.failure().getMessage()))
+                .doOnError(err -> LOGGER.warn("Failed to generate task {} .", err.getMessage())
                 ).flatMap(task -> {
+                    LOGGER.info("Generated Task: {}", task.getId());
                     byte[] image = Base64.getDecoder().decode(task.getTask());
                     return Mono.zip(
                             Mono.just(fileBuilder.writeToFile(false, image)),
                             ocrClient.recognize(image)
-                                    .retryWhen(Retry.backoff(5, Duration.ofSeconds(1))
-                                            .doBeforeRetry(signal -> LOGGER.warn("Ocr for  task {} failed {} times: {}, retrying...", task.getId(), signal.totalRetries() + 1, signal.failure().getMessage()))
+                                    .doOnNext(ignored -> LOGGER.info("OCR for task {} finished", task.getId()))
+                                    .doOnError(err -> LOGGER.warn("OCR for task {} failed {}", task.getId(), err.getMessage())
                                     ).flatMap(ocrResult ->
                                             evaluationApi.evaluate(task.getId(), ocrResult)
-                                                    .retryWhen(Retry.backoff(5, Duration.ofSeconds(1))
-                                                            .doBeforeRetry(signal -> LOGGER.warn("Failed to evaluate task {} times: {}, retrying...", signal.totalRetries() + 1, signal.failure().getMessage()))
-                                                    ).doOnNext(evaluationResult -> LOGGER.info("Evaluation result: {}", evaluationResult))
+                                                    .doOnError(err -> LOGGER.warn("Failed to evaluate Task {} result {} ", task.getId(), err.getMessage()))
+                                                    .doOnNext(evaluationResult -> LOGGER.info("Evaluated Task {} withe result {}", task.getId(), evaluationResult))
                                                     .map(evalResult -> Tuples.of(task, evalResult, ocrResult))
                                     ));
                 }).map(tuple -> {
@@ -69,6 +66,7 @@ public class TestRunner {
                     } catch (IOException e) {
                         LOGGER.warn("Failed to serialize solution", e);
                     }
+                    LOGGER.info("Task {}  test-run finished", task.getId());
                     return new JSONObject()
                             .put("id", task.getId())
                             .put("image", imageName)

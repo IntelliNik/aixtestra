@@ -4,9 +4,10 @@ micronaut:
   server:
     port: 8080
     context-path: "/"
+    read-timeout: 999999999
   http:
     client:
-      read-timeout: 2m
+      read-timeout: 5m
   router:
     static-resources:
       default:
