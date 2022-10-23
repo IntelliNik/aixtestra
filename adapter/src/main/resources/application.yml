@@ -7,6 +7,13 @@ micronaut:
   http:
     client:
       read-timeout: 2m
+  router:
+    static-resources:
+      default:
+        paths:
+          - classpath:gui
+        mapping: /gui/**
+        enabled: true
 
 netty:
   default:

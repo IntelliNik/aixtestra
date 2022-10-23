@@ -25,6 +25,7 @@ public class SolveHandler {
     }
 
     public @NotNull Mono<byte[]> solve(@NotNull Option<byte[]> body) {
+
         if (!(body instanceof Some<byte[]> data)) {
             return Mono.error(new HttpStatusException(HttpStatus.BAD_REQUEST, "No file uploaded"));
         }
@@ -33,11 +34,11 @@ public class SolveHandler {
                 .doOnError((err) -> LOGGER.error("Pinging OCR errored", err))
                 .doOnNext(resp -> LOGGER.info("Got ping Response-Code: {}", resp.getStatus()))
                 .then(client.recognize(data.getValue())
-                                .retryWhen(Retry.backoff(5, Duration.ofSeconds(1))
-                                        .doBeforeRetry(signal -> LOGGER.info("Calling OCR failed {} times: {}, retrying...", signal.totalRetries(), signal.failure().getMessage()))
-                                ).doOnNext(bytes -> {
-                                    String json = new String(bytes, StandardCharsets.UTF_8);
-                                    LOGGER.info("Got response from OCR: {}", json);
-                                }).defaultIfEmpty(new byte[0]));
+                        .retryWhen(Retry.backoff(5, Duration.ofSeconds(1))
+                                .doBeforeRetry(signal -> LOGGER.info("Calling OCR failed {} times: {}, retrying...", signal.totalRetries() + 1, signal.failure().getMessage()))
+                        ).doOnNext(bytes -> {
+                            String json = new String(bytes, StandardCharsets.UTF_8);
+                            LOGGER.info("Got response from OCR: {}", json);
+                        }).defaultIfEmpty(new byte[0]));
     }
 }

@@ -26,7 +26,6 @@ public class ChallengeRequester {
     }
 
 
-    @PostConstruct
     public void register(StartupLatch latch) {
         latch.awaitStartup();
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
@@ -44,7 +43,7 @@ public class ChallengeRequester {
                                         ex.getResponse().getBody().ifPresent(body -> LOGGER.error("Error response: {}", body));
                                     }
                                 } else {
-                                    LOGGER.warn("Error while registering for rating {} times:  {} , retrying...", signal.totalRetries(), signal.failure().getMessage());
+                                    LOGGER.warn("Error while registering for rating {} times:  {} , retrying...", signal.totalRetries() + 1, signal.failure().getMessage());
                                 }
                             })
                     ).doOnNext((res) -> LOGGER.info("Registered for next rating run response: {}", res))

@@ -65,7 +65,7 @@ public class BearerStore {
                     }
                 })
                 .retryWhen(Retry.backoff(5, Duration.ofSeconds(2))
-                        .doBeforeRetry(signal -> LOGGER.warn("Error while getting bearer {} times:  {}, retrying...", signal.totalRetries(), signal.failure().getMessage()))
+                        .doBeforeRetry(signal -> LOGGER.warn("Error while getting bearer {} times: {}, retrying...", signal.totalRetries() + 1, signal.failure().getMessage()))
                 ).doOnError((err) -> LOGGER.error("Could not get bearer ", err))
                 .blockOptional());
 

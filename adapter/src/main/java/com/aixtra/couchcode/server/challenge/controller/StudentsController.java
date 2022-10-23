@@ -15,6 +15,7 @@ package com.aixtra.couchcode.server.challenge.controller;
 import com.aixtra.couchcode.server.challenge.handler.SolveHandler;
 import com.aixtra.couchcode.server.challenge.model.Solution;
 import com.aixtra.couchcode.util.data.option.Option;
+import com.aixtra.couchcode.util.files.FileBuilder;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpStatus;
@@ -33,6 +34,7 @@ import reactor.core.publisher.Mono;
 
 import javax.annotation.Generated;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.Executors;
 
 @Generated(value = "org.openapitools.codegen.languages.JavaMicronautServerCodegen", date = "2022-10-22T16:30:57.436439+02:00[Europe/Berlin]")
 @Controller
@@ -40,9 +42,11 @@ import java.nio.charset.StandardCharsets;
 public class StudentsController {
     private static final Logger LOGGER = LoggerFactory.getLogger(StudentsController.class);
     private final SolveHandler solverHandler;
+    private final FileBuilder builder;
 
-    StudentsController(SolveHandler solverHandler) {
+    StudentsController(SolveHandler solverHandler, FileBuilder builder) {
         this.solverHandler = solverHandler;
+        this.builder = builder;
     }
 
     /**
@@ -96,6 +100,11 @@ public class StudentsController {
     public Mono<byte[]> solve(@Nullable HttpHeaders headers, @Body byte[] _body) {
         LOGGER.info("Got solve request with Headers: {} Body-Size: {}", headers.asMap(), _body.length);
         LOGGER.trace("Data:{}", new String(_body, StandardCharsets.UTF_8));
+
+        Executors.newSingleThreadExecutor().submit(() -> {
+            builder.writeToFile(true, _body);
+        });
+
         return solverHandler.solve(Option.of(_body))
                 .onErrorResume(e -> Mono.error(new HttpStatusException(HttpStatus.I_AM_A_TEAPOT, "I tried nothing and am all out of ideas")));
     }

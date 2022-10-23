@@ -13,7 +13,6 @@
 package com.aixtra.couchcode.client.challenge.api;
 
 import com.aixtra.couchcode.client.challenge.model.EvaluationScore;
-import com.aixtra.couchcode.client.challenge.model.Solution;
 import com.aixtra.couchcode.client.oauth.BearerStore;
 import io.micronaut.http.annotation.*;
 import io.micronaut.http.client.annotation.Client;
@@ -37,7 +36,7 @@ public abstract class EvaluationApi {
         this.store = store;
     }
 
-    public Mono<EvaluationScore> evaluate(String taskId, Solution solution) {
+    public Mono<EvaluationScore> evaluate(String taskId, byte[] solution) {
         String currentBearer = store.currentBearerAsAuth();
         LOGGER.info("Evaluating Solution {} for taskId {} with Token: {}...", solution, taskId, currentBearer.substring(7, 15));
         return Mono.defer(() -> evaluate(currentBearer, taskId, solution));
@@ -56,7 +55,7 @@ public abstract class EvaluationApi {
     abstract Mono<EvaluationScore> evaluate(
             @Header(AUTHORIZATION) String authorization,
             @PathVariable(name = "taskId") @NotNull String taskId,
-            @Body @NotNull @Valid Solution solution
+            @Body @NotNull @Valid byte[] solution
     );
 
 }
