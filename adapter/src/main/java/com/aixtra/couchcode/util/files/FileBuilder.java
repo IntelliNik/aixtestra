@@ -17,7 +17,7 @@ public class FileBuilder {
         this.store = store;
     }
 
-    public void writeToFile(boolean ratingRun, byte[] content) {
+    public String writeToFile(boolean ratingRun, byte[] content) {
         String name = ratingRun ?
                 store.newRatingFile() :
                 store.newFile();
@@ -30,5 +30,6 @@ public class FileBuilder {
         } catch (IOException e) {
             LOGGER.warn("An error occurred writing the file {}.", name, e);
         }
+        return name;
     }
 }
