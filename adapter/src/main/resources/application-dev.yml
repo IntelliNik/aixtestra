@@ -1,2 +1,4 @@
 ocr:
   url: http://localhost:5050
+web:
+  url: http://localhost:8080

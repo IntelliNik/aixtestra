@@ -1,2 +1,4 @@
 ocr:
   url: http://ocr.team-aixtra:5000
+web:
+  url: http://creators-contest-2022.itestra.de/solutions/team-aixtra
